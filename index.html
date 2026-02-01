@@ -63,7 +63,119 @@
 </section>
 
     <main id="main-app" style="display: none;">
-        <h1 style="color: pink; text-align: center; margin-top: 50px;">Welcome Home Bae! ❤️</h1>
+<nav class="vertical-nav animate__animated animate__fadeInRight">
+        
+        <a href="#section-music" class="nav-dot active" onclick="setActive(this)" data-tooltip="Chill Nhạc 🎧">
+            <div class="dot-circle"><i class="fas fa-music"></i></div>
+        </a>
+        
+        <a href="#section-profile" class="nav-dot" onclick="setActive(this)" data-tooltip="Hồ Sơ Boss 📝">
+            <div class="dot-circle"><i class="fas fa-user-astronaut"></i></div>
+        </a>
+
+        <a href="#section-timeline" class="nav-dot" onclick="setActive(this)" data-tooltip="Hành Trình Yêu ⏳">
+            <div class="dot-circle"><i class="fas fa-heartbeat"></i></div>
+        </a>
+
+        <a href="#section-gallery" class="nav-dot" onclick="setActive(this)" data-tooltip="Kỷ Niệm 📸">
+            <div class="dot-circle"><i class="fas fa-images"></i></div>
+        </a>
+
+        <a href="#section-wishes" class="nav-dot" onclick="setActive(this)" data-tooltip="Hũ Hạc Giấy 🎐">
+            <div class="dot-circle"><i class="fas fa-dove"></i></div>
+        </a>
+
+    </nav>
+
+    <div class="content-wrapper">
+        
+        <section id="section-music" class="full-screen-section">
+<section id="section-music" class="full-screen-section">
+            
+            <div class="music-container glass-panel animate__animated animate__zoomIn">
+                <div class="music-header text-center">
+                    <h3>Góc Nhạc Của Bé 🎧</h3>
+                    <p>Thả lỏng vai, nhắm mắt lại nào...</p>
+                </div>
+
+                <div class="player-layout">
+                    
+                <div class="player-left">
+                    
+                    <div class="dj-cat-sitting">
+                        <img src="assets/img/cat/z7489997697774_cc8b565ef0caf5b47c61c0696db47870.jpg" alt="DJ Cat">
+                        <div class="floating-note">🎵</div>
+                    </div>
+                    
+                    <div class="vinyl-wrapper">
+                        <div class="vinyl-disk" id="disk">
+                            <img src="assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg" id="disk-avatar" alt="Avatar Disk">
+                            <div class="center-hole"></div>
+                        </div>
+                    </div>
+
+                    <h2 id="song-title">Chọn nhạc đi Bae... 🎶</h2>
+                    
+                    <div class="progress-wrapper">
+                        <span id="curr-time">0:00</span>
+                        
+                        <div class="progress-area" id="progress-container">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                        
+                        <span id="dur-time">0:00</span>
+                    </div>
+
+                    <div class="controls">
+                        <button onclick="prevSong()" class="btn-ctrl"><i class="fas fa-step-backward"></i></button>
+                        <button onclick="togglePlay()" id="playBtn" class="btn-ctrl btn-play">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button onclick="nextSong()" class="btn-ctrl"><i class="fas fa-step-forward"></i></button>
+                    </div>
+                </div>
+                <div class="player-right">
+                    <h4 class="playlist-title">Playlist Tuyển Chọn ✨</h4>
+                    <ul id="playlist-ul">
+                        </ul>
+                </div>
+                </div>
+            </div>
+
+        </section>
+        </section>
+
+        <section id="section-profile" class="full-screen-section">
+            <div class="glass-placeholder">
+                <h2>📝 Khu Vực 2: Profile Boss</h2>
+                <p>(Đang chờ lắp đặt nội thất...)</p>
+            </div>
+        </section>
+
+        <section id="section-timeline" class="full-screen-section">
+            <div class="glass-placeholder">
+                <h2>⏳ Khu Vực 3: Love Timeline</h2>
+                <p>(Đang chờ lắp đặt nội thất...)</p>
+            </div>
+        </section>
+
+        <section id="section-gallery" class="full-screen-section">
+            <div class="glass-placeholder">
+                <h2>📸 Khu Vực 4: Gallery & Video</h2>
+                <p>(Đang chờ lắp đặt nội thất...)</p>
+            </div>
+        </section>
+
+        <section id="section-wishes" class="full-screen-section">
+            <div class="glass-placeholder">
+                <h2>🎐 Khu Vực 5: Hũ Hạc Ước Nguyện</h2>
+                <p>(Nơi chứa những điều ngọt ngào nhất...)</p>
+            </div>
+        </section>
+
+    </div>
+
+    <audio id="audio" src=""></audio>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

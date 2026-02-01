@@ -80,7 +80,7 @@ function unlockSuccess() {
     var duration = 3 * 1000;
     var animationEnd = Date.now() + duration;
     var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 20000 };
-
+    initMusicPlayer();
     function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
     var interval = setInterval(function() {
@@ -131,3 +131,169 @@ function initParticles() {
         "retina_detect": true
     });
 }
+/* =========================================
+   SMART NAVIGATION (SCROLL SPY)
+========================================= */
+
+// 1. Hàm click thủ công
+function setActive(element) {
+    document.querySelectorAll('.nav-dot').forEach(item => item.classList.remove('active'));
+    element.classList.add('active');
+}
+
+// 2. Tự động Active khi cuộn chuột
+const sections = document.querySelectorAll('.full-screen-section');
+const navDots = document.querySelectorAll('.nav-dot');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        // Nếu cuộn đến 1/3 của section thì kích hoạt
+        if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navDots.forEach(dot => {
+        dot.classList.remove('active');
+        // So sánh href của thẻ a với id của section
+        if (dot.getAttribute('href').includes(current)) {
+            dot.classList.add('active');
+        }
+    });
+});
+/* =========================================
+   MUSIC PLAYER LOGIC (Dán vào cuối script.js)
+========================================= */
+let songIndex = 0;
+const audio = document.getElementById('audio');
+const playBtn = document.getElementById('playBtn');
+const title = document.getElementById('song-title');
+const disk = document.getElementById('disk');
+const diskAvatar = document.getElementById('disk-avatar');
+const progressBar = document.getElementById('progress-bar');
+const playlistUl = document.getElementById('playlist-ul');
+
+// 1. Khởi tạo Player
+function initMusicPlayer() {
+    if (!playlistUl) return; // Nếu chưa có HTML thì không chạy
+    
+    // Load Avatar đĩa than
+    if(appData.profile.avatar) diskAvatar.src = appData.profile.avatar;
+    
+    // Load Playlist
+    renderPlaylist();
+    
+    // Load bài đầu tiên
+    loadSong(songIndex);
+}
+
+// 2. Render Playlist ra màn hình
+function renderPlaylist() {
+    playlistUl.innerHTML = "";
+    appData.musicList.forEach((song, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<i class="fas fa-music"></i> ${song.title}`;
+        li.onclick = () => playSpecificSong(index);
+        
+        if (index === songIndex) li.classList.add('active-song');
+        
+        playlistUl.appendChild(li);
+    });
+}
+
+// 3. Load thông tin bài hát
+function loadSong(index) {
+    const song = appData.musicList[index];
+    title.innerText = song.title;
+    audio.src = song.file;
+    renderPlaylist(); // Cập nhật màu active
+}
+
+// 4. Các nút bấm
+function playSpecificSong(index) {
+    songIndex = index;
+    loadSong(songIndex);
+    playSong();
+}
+
+function togglePlay() {
+    const isPlaying = disk.classList.contains('playing');
+    isPlaying ? pauseSong() : playSong();
+}
+
+function playSong() {
+    disk.classList.add('playing');
+    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    audio.play();
+}
+
+function pauseSong() {
+    disk.classList.remove('playing');
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    audio.pause();
+}
+
+function nextSong() {
+    songIndex++;
+    if (songIndex > appData.musicList.length - 1) songIndex = 0;
+    loadSong(songIndex);
+    playSong();
+}
+
+function prevSong() {
+    songIndex--;
+    if (songIndex < 0) songIndex = appData.musicList.length - 1;
+    loadSong(songIndex);
+    playSong();
+}
+
+// 5. Thanh tiến trình
+// --- 1. CẬP NHẬT THANH TIẾN TRÌNH & THỜI GIAN ---
+function updateProgress(e) {
+    const { duration, currentTime } = e.srcElement;
+    
+    if (duration) {
+        // Tính phần trăm thanh chạy
+        const progressPercent = (currentTime / duration) * 100;
+        document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+        // Tính thời gian (Phút : Giây)
+        // Thời gian hiện tại
+        const currMin = Math.floor(currentTime / 60);
+        let currSec = Math.floor(currentTime % 60);
+        if (currSec < 10) currSec = `0${currSec}`;
+        document.getElementById('curr-time').innerText = `${currMin}:${currSec}`;
+
+        // Tổng thời gian bài hát
+        const durMin = Math.floor(duration / 60);
+        let durSec = Math.floor(duration % 60);
+        if (durSec < 10) durSec = `0${durSec}`;
+        document.getElementById('dur-time').innerText = `${durMin}:${durSec}`;
+    }
+}
+
+// --- 2. TUA NHẠC (CLICK VÀO THANH) ---
+function setProgress(e) {
+    const width = this.clientWidth; // Chiều rộng tổng thanh
+    const clickX = e.offsetX;       // Vị trí click
+    const duration = audio.duration; // Tổng thời gian bài hát
+
+    if (duration) {
+        audio.currentTime = (clickX / width) * duration;
+    }
+}
+
+// --- 3. ĐẢM BẢO GẮN SỰ KIỆN (Thêm vào cuối file JS hoặc trong initMusicPlayer) ---
+const progressContainer = document.getElementById('progress-container');
+if (progressContainer) {
+    progressContainer.addEventListener('click', setProgress);
+}
+
+// Event Listeners
+audio.addEventListener('timeupdate', updateProgress);
+audio.addEventListener('ended', nextSong); // Tự động next bài
