@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Góc nhỏ của tớ và cậu</title>
+    <title>Góc nhỏ của Sư Phụ & Đệ Tử</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -17,41 +16,33 @@
 <body>
 
     <section id="lock-screen">
-        <div class="glass-card animate__animated animate__fadeInDown">
+        <div id="particles-js"></div>
+
+        <div class="glass-card animate__animated animate__fadeInDown" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
             <div class="icon-heart">
                 <i class="fas fa-heart"></i>
             </div>
             
             <h2 class="title">Security Check 🔒</h2>
-            <p class="subtitle">Ai là "bé cưng" của Văn?</p>
+            <p class="subtitle" id="typing-text"></p> 
             
             <div class="input-zone">
-                <input type="password" id="passcode" placeholder="Nhập ngày sinh Sư Phụ (ddmm)...">
+                <input type="password" id="passcode" placeholder="Gợi ý: Ngày sinh Sư Phụ (ddmm)..." autocomplete="off">
                 <button onclick="checkPass()" class="btn-unlock">
-                    <i class="fas fa-key"></i> Mở khóa
+                    <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
-
-            <p id="hint-text" class="hint"></p>
         </div>
-        
-        <div class="background-decor"></div>
     </section>
 
     <main id="main-app" style="display: none;">
-        
-        <nav class="navbar">
-            <div class="logo">Sư Phụ & Bae</div>
-            </nav>
-
-        <section id="hero">
-            <h1>Chào mừng <span class="highlight">Sư Phụ</span> về nhà!</h1>
-            </section>
-
-        </main>
+        <h1 style="color: pink; text-align: center; margin-top: 50px;">Welcome Home Bae! ❤️</h1>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script src="js/data.js"></script>
