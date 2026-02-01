@@ -803,3 +803,335 @@ body::-webkit-scrollbar-thumb {
 #volume-slider::-webkit-slider-thumb:hover {
     transform: scale(1.3); background: #ffeaa7; /* Đổi màu khi chạm vào */
 }
+/* =========================================
+   SECTION 2: THE MUSE PROFILE (SIÊU ĐẸP)
+========================================= */
+
+/* Khung bao ngoài */
+.profile-wrapper {
+    display: flex; justify-content: center; align-items: center;
+    width: 100%; padding: 20px;
+}
+
+/* Thẻ kính chính */
+.profile-card {
+    display: flex;
+    width: 100%; max-width: 950px;
+    background: rgba(255, 255, 255, 0.15); /* Kính trong suốt */
+    backdrop-filter: blur(25px); /* Làm mờ hậu cảnh mạnh */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- CỘT TRÁI (AVATAR) --- */
+.profile-left {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1); /* Màu nền nhẹ khác biệt */
+    padding: 50px 30px;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border-right: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Hiệu ứng Avatar thở */
+.avatar-container { position: relative; width: 180px; height: 180px; margin-bottom: 20px; }
+
+.main-avatar {
+    width: 100%; height: 100%; border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    position: relative; z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.avatar-ring {
+    position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
+    border-radius: 50%;
+    border: 2px dashed #ff7675;
+    animation: spinSlow 20s linear infinite;
+    z-index: 1;
+}
+
+.zodiac-sign {
+    position: absolute; bottom: 5px; right: 5px;
+    background: #6c5ce7; color: white;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.2rem; border: 3px solid white; z-index: 3;
+    animation: bounce 2s infinite;
+}
+
+.profile-name {
+    font-family: var(--font-hand); font-size: 2.5rem;
+    color: white; margin: 10px 0 5px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.verified-icon { color: #00cec9; font-size: 1.5rem; margin-left: 5px; }
+
+.profile-nickname {
+    color: #ffeaa7; font-size: 1.2rem; font-weight: bold; margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.profile-quote {
+    font-style: italic; color: rgba(255,255,255,0.9);
+    background: rgba(0,0,0,0.1); padding: 15px;
+    border-radius: 15px; font-size: 0.95rem; line-height: 1.5;
+}
+
+/* --- CỘT PHẢI (INFO) --- */
+.profile-right {
+    flex: 1.5;
+    padding: 40px;
+    display: flex; flex-direction: column; justify-content: center;
+}
+
+.profile-right h3 {
+    color: #ffeaa7; font-size: 1.3rem; margin-bottom: 15px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px dashed rgba(255,255,255,0.3); padding-bottom: 5px;
+}
+
+/* Skill Bars */
+.skill-section { margin-bottom: 30px; }
+.skill-item { margin-bottom: 15px; }
+.skill-info {
+    display: flex; justify-content: space-between; color: white; margin-bottom: 5px; font-size: 0.9rem; font-weight: 600;
+}
+.skill-level { color: #ffeaa7; font-size: 0.8rem; }
+.skill-bar {
+    width: 100%; height: 8px; background: rgba(255,255,255,0.3); border-radius: 10px; overflow: hidden;
+}
+.skill-fill { height: 100%; border-radius: 10px; transition: width 1.5s ease-in-out; }
+
+/* Hobby Pills */
+.hobby-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+.hobby-pill {
+    background: white; color: #555;
+    padding: 8px 15px; border-radius: 25px;
+    font-size: 0.9rem; font-weight: bold;
+    display: flex; align-items: center; gap: 8px;
+    transition: 0.3s; cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+.hobby-pill:hover {
+    background: #ff7675; color: white; transform: translateY(-3px);
+}
+
+/* RPG Stats Row */
+.rpg-stats {
+    display: flex; justify-content: space-around;
+    background: rgba(255,255,255,0.1);
+    padding: 15px; border-radius: 20px;
+}
+.rpg-stat-item { text-align: center; }
+.stat-val { display: block; font-size: 1.5rem; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.stat-name { font-size: 0.8rem; color: rgba(255,255,255,0.8); text-transform: uppercase; }
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .profile-card { flex-direction: column; }
+    .profile-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    .profile-right { padding: 25px; }
+}
+
+@keyframes spinSlow { 100% { transform: rotate(360deg); } }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+/* =========================================
+   STYLE CHO PROFILE DẠNG TAB (BÁCH KHOA TOÀN THƯ)
+========================================= */
+
+/* Thanh điều hướng Tab */
+.profile-tabs {
+    position: absolute; /* Tách ra khỏi dòng chảy văn bản để bay tự do */
+    top: 20px;          /* Cách mép trên 20px */
+    right: 20px;        /* Cách mép phải 20px */
+    z-index: 10;        /* Nổi lên trên cùng */
+    
+    display: flex;
+    gap: 8px;           /* Khoảng cách giữa các nút */
+    margin: 0; padding: 0; border: none; /* Xóa các margin cũ */
+}
+.profile-tabs::-webkit-scrollbar { display: none; }
+/* Nút bấm nhỏ gọn hơn một chút để vừa góc */
+.tab-btn {
+    font-size: 0.85rem; 
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.15); /* Mờ hơn chút cho tinh tế */
+    backdrop-filter: blur(5px);
+    border-radius: 15px; /* Bo tròn vừa phải */
+}
+.tab-btn i { margin-right: 5px; } /* Cách icon ra xíu */
+.tab-btn:hover, .tab-btn.active {
+    background: #ff7675; /* Màu hồng chủ đạo */
+    border-color: #ff7675;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 118, 117, 0.4);
+}
+
+/* Nội dung Tab */
+.tab-pane { display: none; animation: fadeIn 0.5s; text-align: left; }
+.tab-pane.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Tab 1: Info & Skill */
+.basic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+.info-tag { background: rgba(255,255,255,0.1); padding: 8px; border-radius: 10px; font-size: 0.9rem; }
+.skill-row { margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
+.skill-row:hover { transform: translateX(5px); }
+.skill-track { height: 6px; background: rgba(255,255,255,0.2); border-radius: 5px; margin-top: 5px; }
+.skill-fill { height: 100%; border-radius: 5px; }
+
+/* Tab 2: Personality */
+.tags-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
+.tag-item { background: #ffeaa7; color: #d35400; padding: 5px 10px; border-radius: 15px; font-weight: bold; font-size: 0.85rem; }
+.social-list span { display: block; margin-bottom: 5px; color: white; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 3px; }
+
+/* Tab 3: Food (Ăn uống) */
+.food-columns { display: flex; gap: 20px; }
+.food-col { flex: 1; padding: 15px; border-radius: 15px; }
+.food-col.likes { background: rgba(85, 239, 196, 0.2); }
+.food-col.dislikes { background: rgba(255, 118, 117, 0.2); }
+.food-col h4 { margin-bottom: 10px; font-size: 1rem; text-transform: uppercase; }
+.food-col ul { list-style: none; padding-left: 5px; }
+.food-col li { margin-bottom: 5px; font-size: 0.9rem; }
+.food-note { font-style: italic; margin-top: 10px; font-size: 1rem; color: #e73212; }
+
+/* Tab 4: Love */
+.love-box { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-bottom: 10px; }
+.love-box h4 { color: #fd79a8; margin-bottom: 5px; }
+.love-box.special { background: linear-gradient(45deg, #fd79a8, #e84393); color: white; cursor: pointer; }
+.love-box.special h4 { color: white; }
+.love-box.warning h4 { color: #ff7675; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .profile-tabs { flex-wrap: wrap; }
+    .food-columns { flex-direction: column; }
+    .basic-grid { grid-template-columns: 1fr; }
+}
+/* =========================================
+   GIAO DIỆN CHIA ĐÔI (SPLIT LAYOUT)
+========================================= */
+
+.profile-card {
+    display: flex;
+    flex-direction: row; /* Xếp ngang */
+    align-items: stretch; /* Kéo dãn bằng chiều cao nhau */
+    padding: 0; /* Xóa padding ở thẻ cha */
+    overflow: hidden; /* Bo tròn góc */
+}
+
+/* --- CỘT TRÁI (CỐ ĐỊNH) --- */
+.profile-static-left {
+    width: 35%; /* Chiếm 35% chiều rộng */
+    min-width: 300px; /* Không bé hơn 300px */
+    flex-shrink: 0; /* KHÓA CỨNG: Không được co lại */
+    background: rgba(0,0,0,0.2); /* Màu nền tối hơn chút để tách biệt */
+    padding: 30px 20px;
+    border-right: 1px solid rgba(255,255,255,0.2); /* Đường kẻ dọc ngăn cách */
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+}
+
+/* --- CỘT PHẢI (LINH HOẠT) --- */
+.profile-dynamic-right {
+    flex: 1; /* Chiếm hết phần còn lại */
+    padding: 90px 30px 30px 30px;
+    display: flex; flex-direction: column;
+    overflow-y: auto; /* Nếu dài quá thì cuộn riêng bên phải */
+}
+
+/* --- MENU TAB (TRÊN CÙNG CỘT PHẢI) --- */
+.profile-tabs {
+    position: absolute;
+    top: 30px;    /* Cách mép trên 30px (thoáng hơn) */
+    right: 30px;  /* Cách mép phải 30px (né góc bo tròn) */
+    z-index: 100; /* Nổi lên trên cùng */
+    
+    display: flex; gap: 10px;
+    margin: 0; padding: 0; border: none;
+}
+.tab-btn {
+    flex-shrink: 0; /* Không bị bóp méo nút */
+    font-size: 0.9rem; padding: 8px 15px;
+}
+
+/* --- NỘI DUNG TAB --- */
+.tab-heading {
+    font-family: var(--font-hand);
+    font-size: 1.8rem; color: #ffeaa7; margin-bottom: 20px;
+}
+
+/* Food Layout mới */
+.food-layout { display: flex; gap: 15px; }
+.food-group { flex: 1; padding: 15px; border-radius: 10px; }
+.food-group.likes { background: rgba(85, 239, 196, 0.15); border: 1px solid #55efc4; }
+.food-group.dislikes { background: rgba(255, 118, 117, 0.15); border: 1px solid #ff7675; }
+.food-group ul { list-style: none; text-align: left; }
+.food-group li { margin-bottom: 5px; font-size: 0.9rem; }
+
+/* Love Card mới */
+.love-card {
+    background: rgba(255,255,255,0.1); padding: 15px;
+    border-radius: 15px; margin-bottom: 10px; text-align: left;
+}
+.love-card.special { background: linear-gradient(45deg, #fd79a8, #e84393); color: white; cursor: pointer; }
+.love-card.warning { border-left: 4px solid #ff7675; }
+
+/* RESPONSIVE: VỀ LẠI DỌC TRÊN ĐIỆN THOẠI */
+@media (max-width: 900px) {
+    .profile-card { flex-direction: column; }
+    .profile-static-left { 
+        width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .profile-dynamic-right { width: 100%; padding: 20px; }
+}
+/* =========================================
+   STYLE RIÊNG CHO POPUP HẠC GIẤY (GALAXY)
+========================================= */
+
+/* Khung Popup */
+.galaxy-popup {
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 30px rgba(162, 155, 254, 0.3);
+    border-radius: 20px !important;
+}
+
+/* Nội dung bên trong */
+.origami-content {
+    text-align: center;
+    padding: 10px;
+}
+
+/* Ngôi sao xoay xoay */
+.star-icon-anim {
+    font-size: 3rem; color: #ffeaa7;
+    margin-bottom: 20px;
+    animation: twinkle 2s infinite alternate;
+    text-shadow: 0 0 15px #ffeaa7;
+}
+
+/* Đoạn văn bí mật */
+.secret-text {
+    font-family: var(--font-hand); /* Font viết tay */
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #fff;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* Ký tên */
+.sign-name {
+    font-size: 0.9rem; color: #a29bfe; font-weight: bold; letter-spacing: 2px;
+}
+
+@keyframes twinkle {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+    100% { transform: scale(1.2) rotate(45deg); opacity: 1; }
+}

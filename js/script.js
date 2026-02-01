@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 3. Khởi tạo AOS
     AOS.init();
+    renderProfile();   // <--- Vẽ cái Profile nàng thơ ra
+    renderTimeline();  // <--- Vẽ cái dòng thời gian ra
     if(audio) audio.volume = 0.5; // Mặc định âm lượng 50%
 });
 
@@ -334,3 +336,165 @@ if (progressContainer) {
 // Event Listeners
 audio.addEventListener('timeupdate', updateProgress);
 audio.addEventListener('ended', nextSong); // Tự động next bài
+/* =========================================
+   RENDER PROFILE - CHIA 2 CỘT TÁCH BIỆT (FIXED LEFT)
+========================================= */
+function renderProfile() {
+    const p = appData.profile;
+    const container = document.getElementById('profile-content');
+    if (!container) return;
+
+    let html = `
+    <div class="glass-card profile-card">
+        
+        <div class="profile-static-left">
+            <div class="avatar-container">
+                <div class="avatar-ring"></div>
+                <img src="${p.avatar}" alt="Avatar" class="main-avatar">
+            </div>
+            
+            <h2 class="profile-name">${p.fullname} <i class="fas fa-check-circle verified-icon"></i></h2>
+            <p class="profile-nickname">"${p.nickname}"</p>
+            <p class="profile-dob">${p.dob}</p>
+
+            <div class="basic-info-box">
+                ${p.basic_info.map(i => `
+                    <div class="info-row">
+                        <span class="info-icon">${i.icon}</span>
+                        <span class="info-text"><b>${i.label}:</b> ${i.val}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <div class="profile-dynamic-right">
+            
+            <div class="profile-tabs">
+                <button class="tab-btn active" onclick="switchTab('tab-skill')"><i class="fas fa-bolt"></i> Skill</button>
+                <button class="tab-btn" onclick="switchTab('tab-char')"><i class="fas fa-brain"></i> Tính Cách</button>
+                <button class="tab-btn" onclick="switchTab('tab-food')"><i class="fas fa-utensils"></i> Ăn Uống</button>
+                <button class="tab-btn" onclick="switchTab('tab-love')"><i class="fas fa-heart"></i> Tình Yêu</button>
+            </div>
+
+            <div class="tab-content-area">
+                
+                <div id="tab-skill" class="tab-pane active animate__animated animate__fadeIn">
+                    <h3 class="tab-heading">Sở Trường & Tài Lẻ</h3>
+                    <div class="skill-list">
+                        ${p.skills.map(s => `
+                            <div class="skill-row" onclick="showStory('${s.name}', '${s.story}')">
+                                <div class="skill-name">${s.icon} ${s.name} <small>(${s.level})</small></div>
+                                <div class="skill-track"><div class="skill-fill" style="width:${s.percent}%; background:${s.color}"></div></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div id="tab-char" class="tab-pane animate__animated animate__fadeIn">
+                    <h3 class="tab-heading">Tính Cách & Quan Hệ</h3>
+                    <p class="intro-text">"${p.personality.desc}"</p>
+                    <div class="tags-cloud">
+                        ${p.personality.tags.map(t => `<span class="tag-item">#${t}</span>`).join('')}
+                    </div>
+                    <div class="social-box-mini">
+                        <h4>Người thân & Bạn bè:</h4>
+                        <div class="social-grid-mini">
+                            ${p.personality.social.map(s => `<span><i class="fas fa-user"></i> ${s}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-food" class="tab-pane animate__animated animate__fadeIn">
+                    <h3 class="tab-heading">Sở Thích Ăn Uống</h3>
+                    <div class="food-layout">
+                        <div class="food-group likes">
+                            <h4><i class="fas fa-check"></i> LIKE</h4>
+                            <ul>${p.food_habits.likes.map(f => `<li>${f}</li>`).join('')}</ul>
+                        </div>
+                        <div class="food-group dislikes">
+                            <h4><i class="fas fa-times"></i> DISLIKE</h4>
+                            <ul>${p.food_habits.dislikes.map(f => `<li>${f}</li>`).join('')}</ul>
+                        </div>
+                    </div>
+                    <p class="food-note">Note: ${p.food_habits.note}</p>
+                </div>
+
+                <div id="tab-love" class="tab-pane animate__animated animate__fadeIn">
+                    <h3 class="tab-heading">Chuyện Tình Yêu</h3>
+                    <div class="love-card">
+                        <h4>💘 Gu Bạn Trai</h4>
+                        <p>${p.love_story.ideal_type}</p>
+                    </div>
+                    <div class="love-card special" onclick="showOrigamiSecret()">
+                        <h4>🎐 Bí Mật Hạc Giấy (Bấm xem)</h4>
+                        <p style="font-style:italic; opacity:0.8">"Tớ đã gấp hạc từ nhỏ để dành tặng cho..."</p>
+                    </div>
+                    <div class="love-card warning">
+                        <h4>⚠️ Red Flags</h4>
+                        <p>${p.love_story.red_flags}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>`;
+
+    container.innerHTML = html;
+}
+
+// HÀM CHUYỂN TAB
+function switchTab(tabId) {
+    // Ẩn tất cả tab
+    document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+    // Hiện tab được chọn
+    document.getElementById(tabId).classList.add('active');
+    
+    // Active nút bấm
+    event.currentTarget.classList.add('active');
+}
+/* =========================================
+   XỬ LÝ RIÊNG CHO "BÍ MẬT HẠC GIẤY" (MAGIC)
+========================================= */
+function showOrigamiSecret() {
+    // 1. Lấy nội dung từ Data
+    const secretText = appData.profile.love_story.origami_secret;
+
+    // 2. Bắn pháo hoa ngôi sao (Hiệu ứng Confetti)
+    // (Bắn 2 bên góc màn hình cho đẹp)
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+    
+    // Bắn bên trái
+    confetti({ ...defaults, particleCount: 50, origin: { x: 0.1, y: 0.6 }, colors: ['#ffeaa7', '#fab1a0'] });
+    // Bắn bên phải
+    confetti({ ...defaults, particleCount: 50, origin: { x: 0.9, y: 0.6 }, colors: ['#81ecec', '#74b9ff'] });
+
+    // 3. Hiện Popup phong cách Galaxy
+    Swal.fire({
+        title: '🎐 Hũ Hạc & Ngôi Sao Ước Nguyện',
+        html: `
+            <div class="origami-content">
+                <div class="star-icon-anim"><i class="fas fa-star"></i></div>
+                <p class="secret-text">
+                    "${secretText}"
+                </p>
+                <div class="sign-name">- Bé Cưng ♉ -</div>
+            </div>
+        `,
+        background: '#2d3436 url("https://www.transparenttextures.com/patterns/stardust.png")', // Nền tối có vân sao
+        color: '#dfe6e9', // Chữ trắng sáng
+        showConfirmButton: true,
+        confirmButtonText: 'Trân trọng điều ước này ❤️',
+        confirmButtonColor: '#a29bfe',
+        backdrop: `
+            rgba(0,0,20,0.8)
+            url("assets/img/cuti/z7489997568543_be4f1eecc888849d14489db0b9048c3f.jpg")
+            left center
+            no-repeat
+        `,
+        customClass: {
+            popup: 'galaxy-popup' // Class riêng để chỉnh CSS
+        }
+    });
+}
