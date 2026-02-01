@@ -528,10 +528,23 @@ body {
     border-radius: 20px; padding: 20px;
     height: 450px; overflow-y: auto; /* Cuộn danh sách */
     border: 1px solid rgba(255,255,255,0.2);
+    /* 👇 THÊM MỚI: Để sắp xếp Tiêu đề và List dọc nhau */
+    display: flex;
+    flex-direction: column; 
+    
+    /* 👇 QUAN TRỌNG: Tắt cuộn ở khung to (để giữ tiêu đề đứng yên) */
+    overflow: hidden;
 }
 .player-right h4 { color: white; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 10px; margin-bottom: 10px; }
 
-#playlist-ul { list-style: none; }
+#playlist-ul { 
+    list-style: none; 
+    overflow-y: auto; 
+    flex: 1; /* Chiếm hết khoảng trống còn lại bên dưới tiêu đề */
+    
+    /* Đẩy nội dung ra xíu để không dính sát thanh cuộn */
+    padding-right: 5px;
+}
 #playlist-ul li {
     padding: 12px 15px;
     background: rgba(255, 255, 255, 0.4);
@@ -651,4 +664,44 @@ body {
 .floating-note {
     top: -20px; right: 0px;
     font-size: 1.8rem;
+}
+/* =========================================
+   THANH CUỘN (SCROLLBAR) CUSTOM - SIÊU ĐẸP
+========================================= */
+
+/* 1. Áp dụng cho Playlist (Danh sách nhạc) */
+#playlist-ul::-webkit-scrollbar {
+    width: 6px; /* Độ rộng siêu nhỏ (Cũ là 10-12px) */
+}
+
+/* Nền của thanh cuộn (Track) */
+#playlist-ul::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Trong suốt mờ */
+    border-radius: 10px; /* Bo tròn */
+    margin: 10px 0; /* Cách trên dưới một chút cho đẹp */
+}
+
+/* Cái thanh trượt (Thumb) */
+#playlist-ul::-webkit-scrollbar-thumb {
+    background: rgba(255, 118, 117, 0.6); /* Màu hồng nhạt (theo theme) */
+    border-radius: 10px; /* Bo tròn như viên thuốc */
+    transition: all 0.3s;
+}
+
+/* Khi di chuột vào thanh trượt */
+#playlist-ul::-webkit-scrollbar-thumb:hover {
+    background: #ff7675; /* Đậm lên để biết đang bấm */
+    cursor: grab;
+}
+/* 2. (Tùy chọn) Áp dụng cho toàn bộ Website nếu muốn */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+body::-webkit-scrollbar-track {
+    background: #fad0c4; 
+}
+body::-webkit-scrollbar-thumb {
+    background: #ff7675;
+    border-radius: 10px;
+    border: 2px solid #fad0c4; /* Tạo viền giả cho đẹp */
 }
