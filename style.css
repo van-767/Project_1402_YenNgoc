@@ -34,37 +34,41 @@ body { font-family: var(--font-main); overflow-x: hidden; }
 /* Thẻ kính (Glass Card) */
 .glass-card {
     position: relative;
-    z-index: 10; /* Nằm trên hạt */
+    z-index: 10;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    padding: 3rem;
-    text-align: center;
-    max-width: 400px; width: 90%;
-    /* Hiệu ứng kính mờ */
+    
+    /* --- SỬA CHỖ NÀY ĐỂ TO HƠN --- */
+    padding: 4rem 3rem;  /* Tăng đệm bên trong (Cũ là 3rem) */
+    max-width: 520px;    /* Tăng chiều rộng (Cũ là 400px) */
+    width: 95%;          /* Chiếm 95% màn hình nếu dùng điện thoại */
+    /* ----------------------------- */
+
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
     transform-style: preserve-3d;
+    text-align: center;
 }
 
 .icon-heart {
     font-size: 4rem;
-    color: #ff9a9e;
+    color: #fc5056;
     margin-bottom: 1rem;
     text-shadow: 0 0 20px rgba(255, 154, 158, 0.6);
     animation: heartbeat 1.5s infinite;
 }
 
 .title {
-    color: white;
+    color: rgb(111, 88, 88);
     font-size: 2rem;
     font-weight: 800;
     margin-bottom: 0.5rem;
 }
 
 .subtitle {
-    color: #eee;
+    color: #d83b3b;
     font-family: var(--font-hand);
     font-size: 1.4rem;
     margin-bottom: 2rem;
@@ -133,4 +137,188 @@ body { font-family: var(--font-main); overflow-x: hidden; }
 /* --- QUAN TRỌNG: FIX LỖI POPUP BỊ CHE --- */
 .swal2-container {
     z-index: 20000 !important; /* Cao hơn Lock Screen */
+}
+/* --- 1. MÈO BẢO VỆ (GUARDIAN CAT) --- */
+.guardian-cat-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    /* CHỈNH Ở ĐÂY: Số càng nhỏ thì mèo càng cách xa thẻ */
+    margin-bottom: 20px; 
+    z-index: 30;
+    display: flex;
+    justify-content: center;
+}
+
+/* Ảnh mèo */
+.guardian-cat-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%; /* Bo tròn */
+    border: 4px solid white;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1); /* Bóng đổ ngược lên */
+    background: white;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Hiệu ứng nảy */
+}
+
+/* Hover vào thì mèo nhảy lên */
+.guardian-cat-wrapper:hover .guardian-cat-img {
+    transform: translateY(-15px) scale(1.05);
+}
+
+/* Mũ bảo vệ */
+.security-hat {
+    position: absolute;
+    top: -35px; left: 25px;
+    font-size: 2rem;
+    color: #f1c40f; /* Màu vàng của mũ */
+    text-shadow: 2px 2px 0 #e67e22;
+    transform: rotate(-20deg);
+}
+
+/* Bong bóng thoại */
+.cat-bubble {
+    position: absolute;
+    top: -50px; left: 90px;
+    background: white; color: #ff9a9e;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-family: var(--font-hand); font-weight: bold;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+/* Hiện bong bóng khi hover vào mèo */
+.guardian-cat-wrapper:hover .cat-bubble {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- 2. LỚP TRANG TRÍ NỀN (BACKGROUND DECOR) --- */
+.background-decor {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    z-index: 5; /* Nằm dưới mèo (30) và thẻ kính (10 trong code cũ) */
+    pointer-events: none;
+}
+
+/* Dấu chân mèo đi dạo (Walking Paws) */
+.paw-print {
+    position: absolute;
+    font-size: 2.5rem;
+    color: rgba(255, 183, 178, 0.4); /* Hồng mờ */
+    transform: rotate(30deg);
+    opacity: 0;
+    animation: pawWalk 4s infinite;
+}
+.p1 { bottom: 20%; left: 15%; animation-delay: 0s; }
+.p2 { bottom: 35%; left: 25%; animation-delay: 2s; }
+
+@keyframes pawWalk {
+    0% { opacity: 0; transform: scale(0.8) rotate(30deg); }
+    20% { opacity: 1; transform: scale(1) rotate(30deg); } /* Hiện */
+    40% { opacity: 0; transform: scale(1) rotate(30deg); } /* Ẩn */
+    100% { opacity: 0; }
+}
+
+/* Đồ vật cuti bay bay (Floating Items) */
+.floating-item {
+    position: absolute;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.6);
+    animation: floatItem 6s infinite ease-in-out alternate;
+}
+.i1 { top: 15%; right: 20%; color: #fdf497; animation-duration: 7s; } /* Sao vàng */
+.i2 { top: 40%; left: 10%; color: #ff9a9e; animation-duration: 5s; font-size: 2.5rem; } /* Kẹo */
+.i3 { bottom: 20%; right: 15%; color: #ff6b6b; animation-duration: 6s; } /* Tim đỏ */
+
+@keyframes floatItem {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-30px) rotate(15deg); }
+}
+.login-container {
+    display: flex;
+    flex-direction: column; /* QUAN TRỌNG: Xếp dọc (Mèo trên, Thẻ dưới) */
+    align-items: center;      /* Căn giữa tất cả */
+    justify-content: center;
+    position: relative;
+    z-index: 20;
+}
+/* --- THÊM STYLE CHO 2 MÈO VỆ SĨ (SIDE CATS) --- */
+.side-cat {
+    position: absolute;
+    top: 250px; 
+    z-index: 50;
+    width: 120px;
+    height: 120px;
+}
+
+/* (Các phần khác giữ nguyên như cũ) */
+.left-cat { left: -130px; transform: rotate(-10deg); }
+.right-cat { right: -130px; transform: rotate(10deg); }
+
+/* Ảnh mèo vệ sĩ */
+.side-cat-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: white;
+    transition: transform 0.3s;
+}
+
+/* Hiệu ứng Hover cho mèo vệ sĩ */
+.side-cat:hover .side-cat-img {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Bong bóng thoại cho mèo vệ sĩ */
+.side-bubble {
+    width: max-content;
+    top: -40px !important; /* Đẩy bong bóng lên cao hơn đầu mèo */
+    left: 50% !important;
+    transform: translateX(-50%) translateY(10px); /* Căn giữa */
+}
+
+/* Hiện bong bóng khi di chuột vào mèo vệ sĩ */
+.side-cat:hover .side-bubble {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* --- RESPONSIVE (Ẩn 2 con mèo bên cạnh khi dùng điện thoại) --- */
+@media (max-width: 768px) {
+    .side-cat {
+        display: none; /* Điện thoại màn hình bé quá thì ẩn đi cho đỡ chật */
+    }
+}
+/* --- STYLE RIÊNG CHO MŨ CỦA MÈO VỆ SĨ --- */
+.side-hat {
+    font-size: 1.8rem; /* Mũ nhỏ hơn mèo trùm chút xíu */
+    position: absolute;
+    top: -15px; /* Đặt mũ trên đầu */
+    z-index: 30;
+}
+
+/* Chỉnh mũ cho Mèo Trái (Nghiêng trái) */
+.left-cat .side-hat {
+    left: -5px;
+    transform: rotate(-30deg);
+}
+
+/* Chỉnh mũ cho Mèo Phải (Nghiêng phải) */
+.right-cat .side-hat {
+    right: -5px;
+    left: auto !important; /* Reset left */
+    transform: rotate(30deg);
 }

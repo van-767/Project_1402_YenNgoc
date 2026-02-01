@@ -15,25 +15,52 @@
 </head>
 <body>
 
-    <section id="lock-screen">
-        <div id="particles-js"></div>
+<section id="lock-screen">
+    <div id="particles-js"></div>
+    
+    <div class="background-decor">
+        <div class="paw-print p1"><i class="fas fa-paw"></i></div>
+        <div class="paw-print p2"><i class="fas fa-paw"></i></div>
+        <div class="floating-item i1"><i class="fas fa-star"></i></div>
+        <div class="floating-item i2"><i class="fas fa-candy-cane"></i></div>
+    </div>
+
+    <div class="login-container">
+
+        <div class="side-cat left-cat">
+            <img src="assets/img/cat/z7489997646132_9b3754877bfaca2bec81a2618d6f9c65.jpg" class="side-cat-img" alt="Mèo Trái">
+            <div class="security-hat side-hat"><i class="fas fa-hard-hat"></i></div>
+            <div class="cat-bubble side-bubble">Pass là gì nhờ? 🤔</div>
+        </div>
+
+        <div class="side-cat right-cat">
+            <img src="assets/img/cat/z7489997697774_cc8b565ef0caf5b47c61c0696db47870.jpg" class="side-cat-img" alt="Mèo Phải">
+            <div class="security-hat side-hat"><i class="fas fa-hard-hat"></i></div>
+            <div class="cat-bubble side-bubble">Sai là bị cắn đó! 😼</div>
+        </div>
+
+        <div class="guardian-cat-wrapper">
+            <img src="assets/img/cat/z7489997715011_d6728a1abab7f8c4362774c8d91b4024.jpg" class="guardian-cat-img" alt="Mèo bảo vệ">
+            <div class="security-hat"><i class="fas fa-hard-hat"></i></div>
+            <div class="cat-bubble">Khai báo danh tính! 😾</div>
+        </div>
 
         <div class="glass-card animate__animated animate__fadeInDown" data-tilt data-tilt-glare data-tilt-max-glare="0.5">
             <div class="icon-heart">
                 <i class="fas fa-heart"></i>
             </div>
-            
             <h2 class="title">Security Check 🔒</h2>
             <p class="subtitle" id="typing-text"></p> 
-            
             <div class="input-zone">
-                <input type="password" id="passcode" placeholder="Gợi ý: Ngày sinh Sư Phụ (ddmm)..." autocomplete="off">
+                <input type="password" id="passcode" placeholder="Your Birthday(ddmm) ..." autocomplete="off">
                 <button onclick="checkPass()" class="btn-unlock">
                     <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
-    </section>
+
+    </div>
+</section>
 
     <main id="main-app" style="display: none;">
         <h1 style="color: pink; text-align: center; margin-top: 50px;">Welcome Home Bae! ❤️</h1>
