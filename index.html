@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Góc nhỏ của tớ và cậu</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="lock-screen">
+        <div class="glass-card animate__animated animate__fadeInDown">
+            <div class="icon-heart">
+                <i class="fas fa-heart"></i>
+            </div>
+            
+            <h2 class="title">Security Check 🔒</h2>
+            <p class="subtitle">Ai là "bé cưng" của Văn?</p>
+            
+            <div class="input-zone">
+                <input type="password" id="passcode" placeholder="Nhập ngày sinh Sư Phụ (ddmm)...">
+                <button onclick="checkPass()" class="btn-unlock">
+                    <i class="fas fa-key"></i> Mở khóa
+                </button>
+            </div>
+
+            <p id="hint-text" class="hint"></p>
+        </div>
+        
+        <div class="background-decor"></div>
+    </section>
+
+    <main id="main-app" style="display: none;">
+        
+        <nav class="navbar">
+            <div class="logo">Sư Phụ & Bae</div>
+            </nav>
+
+        <section id="hero">
+            <h1>Chào mừng <span class="highlight">Sư Phụ</span> về nhà!</h1>
+            </section>
+
+        </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+</html>
