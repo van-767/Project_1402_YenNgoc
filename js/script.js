@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 3. Khởi tạo AOS
     AOS.init();
+    if(audio) audio.volume = 0.5; // Mặc định âm lượng 50%
 });
 
 /* --- LOGIC GÕ CHỮ --- */
@@ -287,7 +288,43 @@ function setProgress(e) {
         audio.currentTime = (clickX / width) * duration;
     }
 }
+/* =========================================
+   XỬ LÝ VOLUME & MÀU SẮC
+========================================= */
+const volSlider = document.getElementById('volume-slider');
+const volIcon = document.getElementById('vol-icon');
 
+function setVolume(val) {
+    // 1. Chỉnh âm lượng audio
+    audio.volume = val / 100;
+    
+    // 2. Chỉnh màu thanh trượt (Hiệu ứng fill màu)
+    // Tính % để tô màu hồng từ trái sang phải
+    volSlider.style.backgroundSize = `${val}% 100%`;
+
+    // 3. Đổi icon theo mức âm lượng
+    if (val == 0) {
+        volIcon.className = 'fas fa-volume-mute';
+    } else if (val < 50) {
+        volIcon.className = 'fas fa-volume-down';
+    } else {
+        volIcon.className = 'fas fa-volume-up';
+    }
+}
+
+// Hàm tắt/bật tiếng nhanh khi bấm vào icon loa
+function toggleMute() {
+    if (audio.volume > 0) {
+        audio.dataset.prevVol = audio.volume * 100; // Lưu lại mức cũ
+        volSlider.value = 0;
+        setVolume(0);
+    } else {
+        // Khôi phục lại mức cũ (hoặc 50%)
+        let restore = audio.dataset.prevVol || 50;
+        volSlider.value = restore;
+        setVolume(restore);
+    }
+}
 // --- 3. ĐẢM BẢO GẮN SỰ KIỆN (Thêm vào cuối file JS hoặc trong initMusicPlayer) ---
 const progressContainer = document.getElementById('progress-container');
 if (progressContainer) {

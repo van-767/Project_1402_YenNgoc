@@ -705,3 +705,101 @@ body::-webkit-scrollbar-thumb {
     border-radius: 10px;
     border: 2px solid #fad0c4; /* Tạo viền giả cho đẹp */
 }
+/* =========================================
+   THANH CHỈNH ÂM LƯỢNG (VOLUME SLIDER)
+========================================= */
+.volume-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px; /* Cách nút Play một đoạn */
+    width: 80%; /* Chiều rộng vừa phải */
+    margin-left: auto; margin-right: auto; /* Căn giữa */
+}
+
+.volume-icon {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+}
+
+/* Tùy chỉnh thanh trượt (Range Input) */
+#volume-slider {
+    -webkit-appearance: none; /* Xóa kiểu mặc định xấu xí */
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Cái cục tròn để kéo (Thumb) */
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid #ff7675; /* Viền hồng */
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2); /* Phóng to khi di chuột vào */
+    background: #ff7675;
+}
+/* =========================================
+   THANH VOLUME "GLASS PILL" (SIÊU ĐẸP)
+========================================= */
+.volume-container {
+    display: flex; justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.volume-wrapper {
+    display: flex; align-items: center; gap: 15px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.25); /* Nền kính mờ */
+    border-radius: 30px; /* Bo tròn như viên thuốc */
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.volume-wrapper:hover {
+    background: rgba(255, 255, 255, 0.4); /* Sáng lên khi di chuột vào */
+    transform: translateY(-2px);
+}
+
+#vol-icon {
+    color: white; width: 20px; cursor: pointer;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* TÙY CHỈNH THANH INPUT RANGE */
+#volume-slider {
+    -webkit-appearance: none; width: 120px; height: 6px;
+    background: rgba(255,255,255,0.3); /* Màu nền xám mờ */
+    border-radius: 5px; outline: none; cursor: pointer;
+    /* Dùng biến CSS để tạo màu chạy theo nút kéo */
+    background-image: linear-gradient(#ff7675, #ff7675);
+    background-size: 50% 100%; /* Mặc định 50% */
+    background-repeat: no-repeat;
+}
+
+/* Nút kéo (Thumb) */
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.3); background: #ffeaa7; /* Đổi màu khi chạm vào */
+}

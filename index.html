@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+    <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -132,6 +132,13 @@
                             <i class="fas fa-play"></i>
                         </button>
                         <button onclick="nextSong()" class="btn-ctrl"><i class="fas fa-step-forward"></i></button>
+                    </div>
+                    <div class="volume-container">
+                        <div class="volume-wrapper glass-panel">
+                            <i class="fas fa-volume-up" id="vol-icon" onclick="toggleMute()"></i>
+                            
+                            <input type="range" id="volume-slider" min="0" max="100" value="50" oninput="setVolume(this.value)">
+                        </div>
                     </div>
                 </div>
                 <div class="player-right">
