@@ -120,7 +120,55 @@ const appData = {
             img: "assets/img/food/z7489997630500_d32b37cee8feb2b1ac066dfd6626272b.jpg",
             desc: "Lo sợ, đẩy đưa và tin chấn động...",
             story: "Ngày 27/1/2026:<br>- Cậu sợ, muốn đẩy tớ ra xa làm bạn. Tớ kiên quyết ở lại.<br>- Cậu nhận xét về con người tớ.<br>- Tin chấn động: Cậu sẽ đi du học. Tớ buồn, nhưng sẽ ủng hộ cậu."
-        }
+        },
+        {
+    date: "28/01/2026",
+    title: "[TIÊU ĐỀ NGÀY 28]", // Ví dụ: Đi dạo công viên
+    icon: "🌸", // Chọn icon hợp ý (🌸, 🎬, 🍕...)
+    img: "assets/img/cuti/z7489997568543_be4f1eecc888849d14489db0b9048c3f.jpg", // Thay ảnh khác nếu có
+    desc: "[Mô tả ngắn gọn ngày 28]", 
+    story: "[Copy nội dung chi tiết trong Word dán vào đây].<br>Xuống dòng thì dùng thẻ <br> nhé."
+    },
+    {
+        date: "29/01/2026",
+        title: "[TIÊU ĐỀ NGÀY 29]",
+        icon: "🎬",
+        img: "assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg",
+        desc: "[Mô tả ngắn gọn ngày 29]",
+        story: "[Nội dung chi tiết ngày 29...]"
+    },
+    {
+        date: "30/01/2026",
+        title: "[TIÊU ĐỀ NGÀY 30]",
+        icon: "☕",
+        img: "assets/img/food/z7489997629577_22e3146f31a789f2c5b246eed569aee5.jpg",
+        desc: "[Mô tả ngắn gọn ngày 30]",
+        story: "[Nội dung chi tiết ngày 30...]"
+    },
+    {
+        date: "31/01/2026",
+        title: "[TIÊU ĐỀ NGÀY 31]",
+        icon: "✨",
+        img: "assets/img/cat/z7489997710056_f80c153621c2183dadf0570026cc2a44.jpg",
+        desc: "[Mô tả ngắn gọn ngày 31]",
+        story: "[Nội dung chi tiết ngày 31...]"
+    },
+    {
+        date: "01/02/2026",
+        title: "[TIÊU ĐỀ NGÀY 1/2]",
+        icon: "📅",
+        img: "assets/img/cat/z7489997717234_ed711c909733d4487dc018617d4fb621.jpg",
+        desc: "[Tháng mới, khởi đầu mới...]",
+        story: "[Nội dung chi tiết ngày 1/2...]"
+    },
+    {
+        date: "02/02/2026",
+        title: "[TIÊU ĐỀ NGÀY 2/2]",
+        icon: "❤️",
+        img: "assets/img/cuti/z7489997568441_255ce23f96785340bcec320eb390e730.jpg",
+        desc: "[Sự kiện đặc biệt ngày 2/2]",
+        story: "[Nội dung chi tiết ngày 2/2...]"
+    }
     ],
 
     // 3. DANH SÁCH NHẠC (Giữ nguyên)

@@ -574,30 +574,21 @@ function showRedFlagEffect() {
     });
 }
 /* =========================================
-   RENDER TIMELINE: FINAL SNAKE (HOÀN HẢO)
+   RENDER TIMELINE: HARD-CODE LOGIC (FINAL)
 ========================================= */
 function renderTimeline() {
-    // 1. CHUẨN BỊ DỮ LIỆU (GỘP TIMELINE + TƯƠNG LAI)
     const fullData = [...appData.timeline]; 
-    
-    // Thêm Easter Egg vào cuối cùng của danh sách
-    fullData.push({
-        isFuture: true, // Đánh dấu đây là hộp tương lai
-        title: 'Tương Lai',
-        date: '???',
-        icon: '<i class="fas fa-question"></i>'
-    });
+    fullData.push({ isFuture: true, title: 'Tương Lai', date: '???', icon: '<i class="fas fa-question"></i>' });
 
     const container = document.getElementById('timeline-content');
     if (!container) return;
 
-    // 2. TÍNH TOÁN SỐ CỘT (RESPONSIVE)
+    // Tính số cột
     const w = window.innerWidth;
-    let itemsPerRow = 3; // Desktop mặc định 3 cột
-    if (w <= 768) itemsPerRow = 1; // Mobile 1 cột (Thẳng đứng)
-    else if (w <= 1024) itemsPerRow = 2; // Tablet 2 cột
+    let itemsPerRow = 3; 
+    if (w <= 768) itemsPerRow = 1; 
+    else if (w <= 1024) itemsPerRow = 2;
 
-    // 3. CHIA DỮ LIỆU THÀNH CÁC HÀNG (CHUNKS)
     const rows = [];
     for (let i = 0; i < fullData.length; i += itemsPerRow) {
         rows.push(fullData.slice(i, i + itemsPerRow));
@@ -605,69 +596,188 @@ function renderTimeline() {
 
     let html = '';
 
-    // 4. VẼ TỪNG HÀNG
     rows.forEach((rowItems, rowIndex) => {
-        // Hàng lẻ (index 1, 3...) thì đảo ngược chiều (Rắn bò ngược)
+        // Hàng lẻ (1, 3...) là hàng Ngược
         const isReverse = rowIndex % 2 !== 0; 
         const rowClass = isReverse ? 'snake-row reverse' : 'snake-row';
 
         html += `<div class="${rowClass}" data-aos="fade-up">`;
 
-        // Render từng item trong hàng
         rowItems.forEach((item, index) => {
-            // Kiểm tra xem có vẽ mũi tên NGANG không?
-            // (Chỉ vẽ nếu không phải là item cuối cùng của hàng này)
-            const showHorizontalArrow = index < rowItems.length - 1;
+            // Logic Mũi tên Ngang: Vẽ cho tất cả TRỪ thằng cuối cùng của hàng
+            const showArrow = index < rowItems.length - 1;
 
-            // Kiểm tra xem có vẽ mũi tên DỌC (Xuống dòng) không?
-            // (Chỉ vẽ ở item cuối cùng của hàng, và không phải là hàng cuối cùng của timeline)
-            const showVerticalArrow = (index === rowItems.length - 1) && (rowIndex < rows.length - 1);
+            // Logic Mũi tên Dọc: Chỉ vẽ cho thằng cuối hàng (Trừ hàng cuối cùng của list)
+            const showConnector = (index === rowItems.length - 1) && (rowIndex < rows.length - 1);
 
             html += `<div class="snake-item">`;
 
+            // --- 1. PHẦN NỘI DUNG (CLICKABLE) ---
+            // Bọc trong snake-click-zone để nhận click ưu tiên
             if (item.isFuture) {
-                // --- RENDERING HỘP TƯƠNG LAI ---
                 html += `
-                <div class="snake-point" style="border-color:#ffeaa7; background:#2d3436;">${item.icon}</div>
-                <div class="snake-card" style="border:none; background:none; padding:0;">
-                    <div class="future-box-wrapper" onclick="checkFuture()">
-                        <h3 style="color:#ffeaa7; margin:0">${item.title}</h3>
-                        <span style="font-size:0.8rem; color:#ccc">${item.date}</span>
+                <div class="snake-click-zone" onclick="checkFuture()">
+                    <div class="snake-point" style="border-color:#ffeaa7; background:#2d3436;">${item.icon}</div>
+                    <div class="snake-card" style="border:none; background:none; padding:0;">
+                        <div class="future-box-wrapper">
+                            <h3 style="color:#ffeaa7; margin:0">${item.title}</h3>
+                            <span style="font-size:0.8rem; color:#ccc">${item.date}</span>
+                        </div>
                     </div>
                 </div>`;
             } else {
-                // --- RENDERING SỰ KIỆN THƯỜNG ---
                 html += `
-                <div class="snake-point" onclick="showMemory('${item.title}', '${item.story}', '${item.img}')">
-                    ${item.icon}
-                </div>
-                <div class="snake-card" onclick="showMemory('${item.title}', '${item.story}', '${item.img}')">
-                    <span class="snake-date">${item.date}</span>
-                    <h3 class="snake-title">${item.title}</h3>
+                <div class="snake-click-zone" onclick="showMemory('${item.title}', '${item.story}', '${item.img}')">
+                    <div class="snake-point">${item.icon}</div>
+                    <div class="snake-card">
+                        <span class="snake-date">${item.date}</span>
+                        <h3 class="snake-title">${item.title}</h3>
+                    </div>
                 </div>`;
             }
 
-            // MŨI TÊN NGANG (Đi tiếp)
-            if (showHorizontalArrow) {
-                html += `<div class="arrow-horizontal"><i class="fas fa-long-arrow-alt-right"></i></div>`;
+            // --- 2. PHẦN MŨI TÊN NGANG (TRANG TRÍ) ---
+            if (showArrow) {
+                // TRICK: Ép cứng loại mũi tên dựa trên chiều của hàng
+                if (isReverse) {
+                    // Hàng ngược -> Mũi tên Trái -> Nằm bên Trái
+                    html += `<div class="arrow-wrapper arrow-fixed-left"><i class="fas fa-long-arrow-alt-left"></i></div>`;
+                } else {
+                    // Hàng xuôi -> Mũi tên Phải -> Nằm bên Phải
+                    html += `<div class="arrow-wrapper arrow-fixed-right"><i class="fas fa-long-arrow-alt-right"></i></div>`;
+                }
             }
 
-            // MŨI TÊN DỌC (Xuống dòng - Nối tiếp)
-            if (showVerticalArrow) {
-                html += `<div class="arrow-vertical-connector"><i class="fas fa-level-down-alt"></i></div>`;
+            // --- 3. PHẦN MŨI TÊN DỌC (NỐI HÀNG) ---
+            if (showConnector) {
+                // Nếu hàng đang ngược -> Mũi tên nối nằm bên Trái (để nối xuống dưới)
+                // Nếu hàng đang xuôi -> Mũi tên nối nằm bên Phải
+                const posClass = isReverse ? 'arrow-pos-left' : 'arrow-pos-right';
+                html += `<div class="arrow-connector-down ${posClass}" style="display:block"><i class="fas fa-level-down-alt"></i></div>`;
             }
 
-            html += `</div>`; // Đóng .snake-item
+            html += `</div>`; // End .snake-item
         });
 
-        html += `</div>`; // Đóng .snake-row
+        html += `</div>`; // End .snake-row
     });
 
     container.innerHTML = html;
 }
-
 // Lắng nghe resize để vẽ lại (quan trọng để tính lại số cột)
 window.addEventListener('resize', () => {
     clearTimeout(window.resizeTimer);
     window.resizeTimer = setTimeout(renderTimeline, 200);
 });
+/* =========================================
+   XỬ LÝ CLICK TIMELINE: HIỆN KÝ ỨC (COMMON)
+========================================= */
+function showMemory(title, story, img) {
+    // 1. Hiệu ứng pháo giấy nhẹ (Confetti) tạo cảm xúc
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+    confetti({ ...defaults, particleCount: 50, origin: { y: 0.7 }, colors: ['#ffeaa7', '#ff7675'] });
+
+    // 2. Hiện Popup chi tiết (SweetAlert2 Custom)
+    Swal.fire({
+        // Tiêu đề
+        title: `<div class="memory-title">${title}</div>`,
+        
+        // Nội dung HTML (Ảnh + Truyện)
+        html: `
+            <div class="memory-container">
+                <div class="memory-img-box">
+                    <img src="${img}" class="memory-img" alt="Ký ức">
+                </div>
+                <div class="memory-story">
+                    ${story} </div>
+            </div>
+        `,
+        
+        // Cấu hình giao diện Popup
+        background: '#fff0f3', // Màu nền hồng phấn nhạt
+        color: '#2d3436',      // Màu chữ tối
+        showConfirmButton: true,
+        confirmButtonText: 'Lưu giữ kỷ niệm ❤️',
+        confirmButtonColor: '#ff7675',
+        width: 600,            // Độ rộng popup
+        padding: '20px',
+        
+        // Hiệu ứng xuất hiện/biến mất
+        showClass: { popup: 'animate__animated animate__zoomInDown' },
+        hideClass: { popup: 'animate__animated animate__zoomOutUp' },
+        
+        // Nền mờ phía sau (Backdrop)
+        backdrop: `rgba(0,0,0,0.8)`
+    });
+}
+/* =========================================
+   XỬ LÝ EASTER EGG: 3 CẤP ĐỘ (FINAL)
+========================================= */
+let futureClickCount = 0;
+
+function checkFuture() {
+    futureClickCount++;
+
+    // LEVEL 1: CẢNH BÁO NHẸ
+    if (futureClickCount === 1) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Khoan đã! ✋',
+            text: 'Tương lai là điều bí mật. Cậu chắc chắn muốn xem trộm chứ?',
+            confirmButtonText: 'Tò mò xíu thui...',
+            confirmButtonColor: '#74b9ff',
+            backdrop: `rgba(0,0,0,0.4)`
+        });
+    } 
+    // LEVEL 2: DOẠ NẠT
+    else if (futureClickCount === 2) {
+        Swal.fire({
+            icon: 'warning',
+            title: '⚠️ CẢNH BÁO LẦN CUỐI!',
+            html: 'Nếu cậu xem bức ảnh này, cậu sẽ phải <b>CHỊU TRÁCH NHIỆM</b> với người trong ảnh suốt đời đấy!<br>Vẫn dám xem hả?',
+            showCancelButton: true,
+            confirmButtonText: 'Sợ gì! Xem luôn!',
+            cancelButtonText: 'Thôi rén rồi...',
+            confirmButtonColor: '#d63031',
+            cancelButtonColor: '#00b894',
+            background: '#fff0f3',
+            focusCancel: true
+        });
+    } 
+    // LEVEL 3: CHỐT ĐƠN (SHOW ẢNH)
+    else {
+        // Hiệu ứng pháo hoa
+        const duration = 3000;
+        const end = Date.now() + duration;
+        (function frame() {
+            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+            if (Date.now() < end) requestAnimationFrame(frame);
+        }());
+
+        // HIỆN ẢNH SƯ PHỤ
+        Swal.fire({
+            title: '✨ Chồng Tương Lai Nè! ✨',
+            // 👇 THAY ẢNH SƯ PHỤ Ở ĐÂY
+            imageUrl: 'assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg', 
+            imageWidth: 400,
+            imageAlt: 'Future Husband',
+            html: `
+                <div style="margin-top:15px">
+                    <p style="font-size: 1.2rem; color: #d63031; font-weight: bold;">"Chạy đâu cho thoát!" 😎</p>
+                    <p>Đã lỡ nhìn thấy rồi là phải cưới đó nha!</p>
+                </div>
+            `,
+            background: '#fff url("https://www.transparenttextures.com/patterns/stardust.png")',
+            showConfirmButton: true,
+            confirmButtonText: 'Duyệt luôn! ❤️',
+            confirmButtonColor: '#ff7675',
+            backdrop: `rgba(0,0,0,0.8)`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Ngoan lắm! Yêu bé 3000! 🥰');
+                futureClickCount = 0; // Reset game
+            }
+        });
+    }
+}

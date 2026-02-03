@@ -1210,104 +1210,59 @@ body::-webkit-scrollbar-thumb {
 @keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
 @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }
 /* =========================================
-   TIMELINE FINAL: SNAKE FLOW (KHÔNG CHỒNG CHÉO)
+   TIMELINE FINAL: NO-BLOCKING & CENTERED
 ========================================= */
 
 .timeline-horizontal-wrapper {
-    width: 100%; padding: 60px 20px;
+    width: 100%; padding: 40px 10px;
     max-width: 1200px; margin: 0 auto;
     position: relative;
-    overflow: visible; /* Để mũi tên không bị cắt */
+    overflow: visible; 
 }
 
 /* Container chính */
 .snake-container {
     display: flex; flex-direction: column; 
-    gap: 80px; /* Khoảng cách dọc giữa các hàng (Thoáng hơn) */
+    gap: 90px; /* Khoảng cách hàng */
 }
 
-/* --- MỘT HÀNG (ROW) --- */
+/* Hàng ngang */
 .snake-row {
     display: flex; justify-content: center;
-    gap: 60px; /* Khoảng cách ngang giữa các thẻ (Đủ chỗ cho mũi tên) */
+    gap: 80px; 
     width: 100%; position: relative;
 }
 
-/* Hàng chẵn: Đảo ngược chiều (Phải -> Trái) */
-.snake-row.reverse {
-    flex-direction: row-reverse;
-}
+.snake-row.reverse { flex-direction: row-reverse; }
 
-/* --- TỪNG ITEM --- */
 .snake-item {
     position: relative;
-    width: 280px; /* Chiều rộng cố định */
+    width: 280px;
     display: flex; flex-direction: column; align-items: center;
-    z-index: 2; /* Nổi lên trên mũi tên */
 }
 
-/* --- MŨI TÊN NGANG (NỐI ITEM CÙNG HÀNG) --- */
-.arrow-horizontal {
-    position: absolute;
-    top: 35px; /* Canh ngay giữa icon tròn */
-    color: #ffeaa7; font-size: 2.5rem;
-    filter: drop-shadow(0 0 5px #fdcb6e);
-    animation: pulseArrow 1.5s infinite alternate;
-    z-index: 1; /* Nằm dưới item */
+/* =========================================
+   1. KHU VỰC CẢM ỨNG (NÚT BẤM)
+   Fix: Thêm pointer-events: auto để chắc chắn nhận click
+========================================= */
+.snake-click-zone {
+    position: relative;
+    z-index: 999; /* Luôn nổi cao nhất */
+    width: 100%;
+    display: flex; flex-direction: column; align-items: center;
+    cursor: pointer;
+    pointer-events: auto; /* 👇 BẮT BUỘC PHẢI CÓ */
 }
 
-/* Hàng Xuôi (Lẻ): Mũi tên nằm bên PHẢI, chỉ sang PHẢI */
-.snake-row:not(.reverse) .arrow-horizontal {
-    right: -50px; /* Đẩy ra xa khỏi thẻ để ko bị chồng */
-}
-
-/* Hàng Ngược (Chẵn): Mũi tên nằm bên TRÁI, chỉ sang TRÁI */
-.snake-row.reverse .arrow-horizontal {
-    left: -50px; /* Đẩy ra xa bên trái */
-    transform: rotate(180deg); /* Quay ngược lại */
-}
-
-/* --- 2. MŨI TÊN DỌC (ĐỎ) - CHO VÀO GIỮA --- */
-.arrow-vertical-connector {
-    position: absolute; 
-    bottom: -70px;
-    font-size: 3rem; color: #ff7675;
-    z-index: 1;
-    filter: drop-shadow(0 0 8px #ff7675);
-    animation: bounceDown 2s infinite;
-}
-
-/* Hàng Xuôi: Mũi tên nằm ở item cuối cùng */
-.snake-row:not(.reverse) .snake-item:last-child .arrow-vertical-connector {
-    display: block; 
-    /* Cũ: right: 20% -> Mới: Canh ngay giữa thẻ */
-    right: auto; left: 50%; transform: translateX(-50%);
-}
-
-/* Hàng Ngược: Mũi tên nằm ở item cuối cùng */
-.snake-row.reverse .snake-item:last-child .arrow-vertical-connector {
-    display: block; 
-    /* Cũ: left: 20% -> Mới: Canh ngay giữa thẻ */
-    left: 50%; right: auto; transform: translateX(-50%);
-}
-
-/* Ẩn mũi tên dọc ở những item không phải cuối hàng */
-.arrow-vertical-connector { display: none; }
-.snake-item:last-child .arrow-vertical-connector { display: block; }
-
-
-/* --- CARD STYLE (ĐẸP & GỌN) --- */
 .snake-point {
-    width: 80px; height: 80px; /* To hơn xíu */
+    width: 80px; height: 80px;
     background: #2d3436; border: 3px solid #ff7675; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 2.2rem; color: white;
     box-shadow: 0 0 15px rgba(255, 118, 117, 0.5);
-    cursor: pointer; transition: 0.3s; 
-    margin-bottom: 20px;
-    position: relative; z-index: 5;
+    transition: 0.3s; margin-bottom: 20px;
 }
-.snake-item:hover .snake-point { 
+.snake-click-zone:hover .snake-point { 
     transform: scale(1.15) rotate(15deg); 
     background: #ff7675; border-color: white; 
 }
@@ -1316,47 +1271,144 @@ body::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px; padding: 15px; width: 100%; text-align: center;
-    cursor: pointer; transition: 0.3s;
+    transition: 0.3s;
 }
-.snake-card:hover { 
+.snake-click-zone:hover .snake-card { 
     transform: translateY(-5px); 
     background: rgba(255,255,255,0.25); 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
 }
 
 .snake-date { display: inline-block; background: #6c5ce7; color: white; padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; margin-bottom: 5px; }
 .snake-title { font-size: 1.1rem; color: white; margin: 0; font-weight: 700; }
 
-/* Future Box (Easter Egg) */
+
+/* =========================================
+   2. MŨI TÊN (TRANG TRÍ)
+   Fix: Size 0x0 để không che nút bấm
+========================================= */
+.arrow-wrapper {
+    position: absolute;
+    top: 35px;
+    color: #ffeaa7; font-size: 2.5rem;
+    filter: drop-shadow(0 0 5px #fdcb6e);
+    animation: pulseArrow 1.5s infinite alternate;
+    
+    /* 👇 QUAN TRỌNG: BIẾN NÓ THÀNH VÔ HÌNH VỀ MẶT DIỆN TÍCH */
+    width: 0; height: 0; overflow: visible;
+    pointer-events: none; 
+    z-index: 0;
+}
+
+.arrow-fixed-right { right: -65px; left: auto; }
+.arrow-fixed-left { left: -65px; right: auto; }
+
+
+/* =========================================
+   3. MŨI TÊN DỌC (NỐI HÀNG) - ĐÃ CĂN CHỈNH
+========================================= */
+.arrow-connector-down {
+    position: absolute; 
+    bottom: -85px; /* Đẩy sâu xuống dưới */
+    font-size: 3rem; color: #ff7675;
+    
+    /* 👇 QUAN TRỌNG: KHÔNG CHO NÓ CÓ DIỆN TÍCH ĐỂ CHE NÚT DƯỚI */
+    overflow: visible;
+    pointer-events: none; z-index: 0;
+    
+    filter: drop-shadow(0 0 8px #ff7675);
+    animation: bounceDown 2s infinite;
+    
+    /* CĂN GIỮA: Điều chỉnh lại tỉ lệ translateX một chút cho vừa mắt */
+    left: 50%; 
+    /* Cũ: -50% | Mới: -40% để nhích sang phải 1 tý, hoặc -60% để sang trái */
+    /* Thường icon này hơi lệch trái, nên ta để -45% là đẹp */
+    transform: translateX(-45%);
+    
+    /* Giúp icon canh giữa chuẩn hơn trong cái box 0px */
+    display: flex; justify-content: center; 
+}
+
+/* Animations, Future Box & Mobile (Giữ nguyên) */
 .future-box-wrapper {
     border: 2px dashed #ffeaa7; padding: 15px; border-radius: 15px;
     background: rgba(0,0,0,0.3); text-align: center; cursor: pointer; transition: 0.3s;
+    position: relative; z-index: 100;
 }
-.future-box-wrapper:hover { 
-    background: rgba(255, 234, 167, 0.1); border-color: white; transform: scale(1.05); 
-}
+.future-box-wrapper:hover { background: rgba(255, 234, 167, 0.1); border-color: white; transform: scale(1.05); }
 
-/* Animations */
 @keyframes pulseArrow { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.2); } }
 @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
 
-/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
-    .snake-row { flex-direction: column !important; align-items: center; gap: 60px; }
-    .snake-item { width: 90%; }
-    
-    /* Ẩn hết mũi tên ngang */
-    .arrow-horizontal { display: none !important; }
+    .snake-row { flex-direction: column !important; gap: 60px; }
+    .arrow-fixed-right, .arrow-fixed-left { display: none !important; }
+    .arrow-connector-down {
+        display: block !important; 
+        bottom: -50px; left: 50%; transform: translateX(-50%);
+        width: auto; height: auto; /* Mobile thì trả lại size thường */
+    }
+    .snake-row:last-child .snake-item:last-child .arrow-connector-down { display: none !important; }
+} 
+/* =========================================
+   STYLE CHO POPUP KÝ ỨC (MEMORY POPUP)
+========================================= */
 
-    /* Luôn hiện mũi tên xuống ở mọi item (trừ thằng cuối cùng của cả list) */
-    .arrow-vertical-connector {
-        display: block !important;
-        bottom: -50px; left: 50%; right: auto !important;
-        transform: translateX(-50%);
-    }
-    
-    /* Ẩn mũi tên xuống ở cái hộp tương lai cuối cùng */
-    .snake-container .snake-row:last-child .snake-item:last-child .arrow-vertical-connector {
-        display: none !important;
-    }
+/* Tiêu đề Popup */
+.memory-title {
+    font-family: var(--font-hand);
+    font-size: 2rem;
+    color: #ff7675;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+
+/* Container chứa ảnh và truyện */
+.memory-container {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 20px;
+}
+
+/* Khung ảnh */
+.memory-img-box {
+    width: 100%; max-height: 300px; /* Giới hạn chiều cao để không bị dài quá */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border: 3px solid white;
+}
+
+.memory-img {
+    width: 100%; height: 100%; 
+    object-fit: cover; /* Cắt ảnh đẹp, không méo */
+    transition: 0.5s;
+}
+.memory-img-box:hover .memory-img {
+    transform: scale(1.05); /* Zoom nhẹ khi di chuột vào ảnh */
+}
+
+/* Nội dung truyện */
+.memory-story {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: justify; /* Căn đều 2 bên cho đẹp */
+    color: #444;
+    background: white;
+    padding: 15px; border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05); /* Hiệu ứng lõm nhẹ */
+    width: 100%;
+}
+
+/* Chỉnh lại nút bấm SweetAlert */
+.swal2-confirm {
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    padding: 12px 30px !important;
+    box-shadow: 0 5px 15px rgba(255, 118, 117, 0.4) !important;
+}
+
+/* Mobile: Ảnh nhỏ lại xíu */
+@media (max-width: 600px) {
+    .memory-title { font-size: 1.5rem; }
+    .memory-img-box { max-height: 200px; }
+    .memory-story { font-size: 1rem; }
 }
