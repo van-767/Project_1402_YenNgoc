@@ -1412,3 +1412,152 @@ body::-webkit-scrollbar-thumb {
     .memory-img-box { max-height: 200px; }
     .memory-story { font-size: 1rem; }
 }
+/* =========================================
+   SECTION 4: DÂY PHƠI KỶ NIỆM (POLAROID GALLERY)
+========================================= */
+
+#section-gallery {
+    padding: 50px 0;
+    position: relative;
+    overflow: hidden; /* Để dây không bị lòi ra */
+    min-height: 80vh;
+    display: flex; flex-direction: column; justify-content: center;
+}
+
+/* Tiêu đề phần này */
+.gallery-title {
+    text-align: center;
+    font-family: var(--font-hand);
+    color: #ffeaa7; font-size: 2.5rem;
+    margin-bottom: 50px;
+    text-shadow: 0 0 10px rgba(255, 234, 167, 0.3);
+}
+
+/* --- DÂY THỪNG (ROPE) --- */
+.rope-container {
+    width: 100%;
+    margin-bottom: 80px; /* Khoảng cách giữa các dây */
+    position: relative;
+    height: 300px; /* Chiều cao vùng treo ảnh */
+}
+
+/* Sợi dây (Vẽ bằng Border cong) */
+.rope {
+    width: 110%; /* Dài hơn màn hình để cong tự nhiên */
+    height: 50px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%; /* Tạo độ cong */
+    position: absolute;
+    top: -20px; left: -5%;
+    z-index: 1;
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+}
+
+/* --- TẤM ẢNH POLAROID --- */
+.polaroid-item {
+    position: absolute;
+    top: 30px; /* Treo dưới dây */
+    width: 180px;
+    background: white;
+    padding: 10px 10px 40px 10px; /* Padding đáy dày để viết chữ */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transform-origin: top center; /* Điểm xoay là ở cái kẹp */
+    animation: swing 3s infinite ease-in-out alternate;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 2;
+}
+
+/* Hiệu ứng khi di chuột: Dừng đung đưa, phóng to, nổi lên */
+.polaroid-item:hover {
+    animation-play-state: paused;
+    transform: scale(1.2) rotate(0deg) !important;
+    z-index: 100;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+/* Ảnh bên trong */
+.polaroid-img {
+    width: 100%; height: 180px;
+    object-fit: cover;
+    border: 1px solid #eee;
+    filter: sepia(20%); /* Màu hoài cổ nhẹ */
+}
+
+/* Chữ viết tay bên dưới */
+.polaroid-caption {
+    font-family: var(--font-hand);
+    color: #2d3436;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    transform: rotate(-2deg); /* Chữ hơi nghiêng cho tự nhiên */
+}
+
+/* --- CÁI KẸP GỖ (CLIP) --- */
+.polaroid-item::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: 50%; transform: translateX(-50%);
+    width: 15px; height: 30px;
+    background: #e17055; /* Màu gỗ */
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    z-index: 5;
+}
+
+/* --- MÁY CHIẾU (PROJECTOR AREA) --- */
+.projector-area {
+    margin-top: 50px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.projector-btn {
+    background: #2d3436;
+    color: #fab1a0;
+    border: 2px dashed #fab1a0;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-family: var(--font-main);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex; align-items: center; gap: 10px;
+}
+
+.projector-btn:hover {
+    background: #fab1a0; color: #2d3436;
+    box-shadow: 0 0 30px #fab1a0;
+    transform: translateY(-5px);
+}
+
+.projector-light {
+    position: absolute;
+    top: -100px; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,234,167,0.4) 0%, transparent 70%);
+    filter: blur(20px);
+    pointer-events: none;
+    animation: flicker 2s infinite;
+}
+
+/* Animation Gió thổi */
+@keyframes swing {
+    0% { transform: rotate(3deg); }
+    100% { transform: rotate(-3deg); }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+    50% { opacity: 0.4; transform: translateX(-50%) scale(1.1); }
+}
+
+/* Responsive: Mobile ảnh nhỏ lại */
+@media (max-width: 768px) {
+    .polaroid-item { width: 140px; }
+    .polaroid-img { height: 140px; }
+    .rope-container { height: 200px; }
+}

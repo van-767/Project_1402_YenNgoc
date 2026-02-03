@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     AOS.init();
     renderProfile();   // <--- Vẽ cái Profile nàng thơ ra
     renderTimeline();  // <--- Vẽ cái dòng thời gian ra
+    renderGallery(); // <--- Vẽ cái gallery ảnh ra
     if(audio) audio.volume = 0.5; // Mặc định âm lượng 50%
 });
 
@@ -780,4 +781,79 @@ function checkFuture() {
             }
         });
     }
+}
+// --- RENDER DÂY PHƠI ẢNH ---
+function renderGallery() {
+    const galleryData = appData.gallery;
+    const container = document.getElementById('gallery-rope-area');
+    if (!container) return;
+
+    // Chia thành 2 dây (Mỗi dây tối đa 4 ảnh cho đẹp)
+    const rope1Data = galleryData.slice(0, 4);
+    const rope2Data = galleryData.slice(4, 8); // Nếu có nhiều hơn thì lấy tiếp
+
+    let html = '';
+
+    // HÀM HELPER VẼ DÂY
+    const buildRope = (items) => {
+        let ropeHtml = `<div class="rope-container"><div class="rope"></div>`;
+        items.forEach((item, index) => {
+            // Tính toán vị trí trái (chia đều dây)
+            const leftPos = 10 + (index * (80 / items.length)); 
+            
+            ropeHtml += `
+            <div class="polaroid-item" 
+                 style="left: ${leftPos}%; animation-delay: ${item.delay}s; transform: rotate(${item.rotate}deg)"
+                 onclick="viewPhoto('${item.img}', '${item.caption}')">
+                <img src="${item.img}" class="polaroid-img">
+                <div class="polaroid-caption">${item.caption}</div>
+            </div>`;
+        });
+        ropeHtml += `</div>`;
+        return ropeHtml;
+    };
+
+    html += buildRope(rope1Data);
+    if (rope2Data.length > 0) html += buildRope(rope2Data);
+
+    container.innerHTML = html;
+}
+
+// --- XEM ẢNH FULL (Khi click vào Polaroid) ---
+function viewPhoto(img, caption) {
+    Swal.fire({
+        imageUrl: img,
+        imageAlt: caption,
+        title: caption,
+        background: '#fff',
+        confirmButtonColor: '#ff7675',
+        showConfirmButton: false,
+        backdrop: `rgba(0,0,0,0.8)`
+    });
+}
+
+// --- MÁY CHIẾU PHIM (VIDEO) ---
+function showVideoProjector() {
+    // Sư Phụ có thể thay link YouTube vào đây
+    // Hoặc nếu là file video local thì dùng thẻ <video>
+    const videoHtml = `
+        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+            <iframe style="position:absolute; top:0; left:0; width:100%; height:100%;" 
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p style="margin-top:15px; font-style:italic; color:#aaa">"Thước phim này dành riêng cho em..."</p>
+    `;
+
+    Swal.fire({
+        title: '🎥 Rạp Chiếu Phim Mini 🍿',
+        html: videoHtml,
+        width: 800,
+        background: '#000',
+        color: '#fff',
+        showConfirmButton: true,
+        confirmButtonText: 'Đóng rạp',
+        confirmButtonColor: '#d63031',
+        backdrop: `rgba(0,0,0,0.9)`
+    });
 }

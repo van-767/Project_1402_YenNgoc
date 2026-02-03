@@ -249,5 +249,18 @@ const appData = {
         { title: "HCM 03/03/2025", file: "assets/music/playlist_yen_ngoc/HCM_03_03_2025.m4a" },
         { title: "NHHCM 18/01/2026", file: "assets/music/playlist_yen_ngoc/NHHCM_18_01_2026.m4a" },
         { title: "HCMBHGAV 23/01/2026", file: "assets/music/playlist_yen_ngoc/HCMBHGAV_23_01_26.m4a" }
-    ]
+    ],
+    // 4. THƯ VIỆN ẢNH (DÂY PHƠI)
+    gallery: [
+        // DÂY 1
+        { img: "assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg", caption: "Nụ cười ấy...", rotate: -3, delay: 0 },
+        { img: "assets/img/cat/z7489997715011_d6728a1abab7f8c4362774c8d91b4024.jpg", caption: "Meow Meow 😺", rotate: 2, delay: 0.5 },
+        { img: "assets/img/cuti/z7489997568543_be4f1eecc888849d14489db0b9048c3f.jpg", caption: "Khéo tay ghê!", rotate: -5, delay: 1 },
+        { img: "assets/img/food/z7489997635060_36d73097dd86aafa79e308d3b549ac57.jpg", caption: "Đi chơi nè 🎡", rotate: 4, delay: 1.5 },
+        
+        // DÂY 2 (Nếu muốn thêm nhiều ảnh thì thêm vào đây)
+        { img: "assets/img/cat/z7489997725903_ff7bf6b0a5185e66ec6966bde804d780.jpg", caption: "Hạc giấy 🎐", rotate: -2, delay: 0.2 },
+        { img: "assets/img/food/z7489997635173_c207f7c6bdb0cd07d9f9163fd43903b1.jpg", caption: "Yummy 🍜", rotate: 3, delay: 0.8 },
+        { img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg", caption: "Cute xỉu ❤️", rotate: -4, delay: 1.2 }
+    ],
 };
