@@ -181,10 +181,23 @@
             </div>
         </section>
 
-        <section id="section-wishes" class="full-screen-section">
-            <div class="glass-placeholder">
-                <h2>🎐 Khu Vực 5: Hũ Hạc Ước Nguyện</h2>
-                <p>(Nơi chứa những điều ngọt ngào nhất...)</p>
+        <section id="section-constellation">
+            <div class="constellation-container">
+                <h2 class="constellation-title" data-aos="fade-down">Dệt Cánh Hạc Tình Yêu 🦢</h2>
+                
+                <div class="control-panel" data-aos="fade-up">
+                    <p class="constellation-subtitle" id="instruction-text">
+                        "Hãy nối các vì sao theo đường kẻ mờ nhé..."
+                    </p>
+                    <button class="btn-reset-constellation" onclick="resetGame()">
+                        <i class="fas fa-redo"></i> Vẽ Lại
+                    </button>
+                </div>
+                
+                <div class="canvas-wrapper" data-aos="zoom-in">
+                    <canvas id="constellation-canvas"></canvas>
+                    <div class="final-crane" id="finalCrane"></div>
+                </div>
             </div>
         </section>
 

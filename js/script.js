@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProfile();   // <--- Vẽ cái Profile nàng thơ ra
     renderTimeline();  // <--- Vẽ cái dòng thời gian ra
     renderGallery(); // <--- Vẽ cái gallery ảnh ra
+    initConstellation(); // <--- Khởi tạo hiệu ứng bầu trời sao
     if(audio) audio.volume = 0.5; // Mặc định âm lượng 50%
 });
 
@@ -910,4 +911,319 @@ function playSelectedVideo(index) {
             showVideoProjector(); // Quay lại menu
         }
     });
+}
+/* =========================================
+   LOGIC PHẦN 5: GAME NỐI SAO (FINAL - GLOW EFFECT)
+========================================= */
+
+const canvas = document.getElementById('constellation-canvas');
+let ctx, canvasWidth, canvasHeight;
+let stars = [], connections = [];
+let isDragging = false, dragStartStar = null, mousePos = { x: 0, y: 0 };
+let isCompleted = false;
+let pulseFrame = 0; // Biến dùng để tạo hiệu ứng nhấp nháy
+
+// CẤU HÌNH VỊ TRÍ SAO (HÌNH CON HẠC)
+const starPositions = [
+    { id: 1, x: 0.15, y: 0.15 }, // Đỉnh đuôi trên cùng (Cao nhất bên trái)
+    { id: 2, x: 0.15, y: 0.42 }, // Chóp đuôi giữa (Nhọn ra sau)
+    { id: 3, x: 0.30, y: 0.42 }, // Giao điểm đuôi & thân
+    { id: 4, x: 0.34, y: 0.485 },
+    { id: 5, x: 0.22, y: 0.70 }, // Chóp chân/bụng dưới (Thấp nhất bên trái)
+    { id: 6, x: 0.38, y: 0.55 }, // Bụng giữa
+    { id: 7, x: 0.55, y: 0.52 }, // Tâm điểm (Giao cổ - cánh - thân)
+    { id: 8, x: 0.42, y: 0.30 }, // Đỉnh cánh (Gấp khúc)
+    { id: 9, x: 0.50, y: 0.42 }, // Giao điểm cánh & lưng
+    { id: 10, x: 0.60, y: 0.18 }, // Gáy (Gấp khúc cổ)
+    { id: 11, x: 0.68, y: 0.18 }, // Đỉnh đầu
+    { id: 12, x: 0.78, y: 0.28 }, // Chóp mỏ
+    { id: 13, x: 0.65, y: 0.26 }
+];
+
+// CÁC CẶP CẦN NỐI (ĐỂ RA HÌNH Y NHƯ ẢNH MẪU)
+const requiredConnections = [
+    // --- PHẦN CÁNH & LƯNG (Trên cùng) ---
+    [1, 8],  // Đuôi lên cánh
+    [8, 9],  // Cánh gấp xuống lưng
+    [9, 7],  // Lưng nối vào tâm
+    
+    // --- PHẦN ĐẦU & CỔ (Bên phải) ---
+    [9, 10], // Tâm lên gáy
+    [10, 11], // Gáy ra đỉnh đầu
+    [11, 12], // Đỉnh đầu ra mỏ
+    [12, 13], // Mỏ về họng
+    [13, 7],  // Họng về tâm (Khép kín đầu)
+    [13, 11], // (Nối thêm) Họng lên đỉnh đầu cho kín mặt
+
+    // --- PHẦN THÂN DƯỚI & CHÂN ---
+    [7, 6],  // Tâm xuống bụng
+    [7, 5],  // Bụng xuống chóp chân
+    [5, 4],  // Chóp chân về bụng sau
+    [4, 6],  // (Nối thêm) Khép kín tam giác bụng dưới
+
+    // --- PHẦN ĐUÔI (Bên trái) ---
+    [4, 2],  // Bụng sau ra chóp đuôi giữa
+    [2, 3],  // Chóp đuôi giữa về giao điểm
+    [3, 1],  // Giao điểm lên đỉnh đuôi
+    [3, 4],  // (Nối thêm) Khép kín thân sau
+    [1, 3]   // (Đã nối ở trên, đảm bảo kín)
+];
+// MÀU SẮC (Giữ nguyên hoặc chỉnh lại cho sang)
+const STAR_COLOR = '#ff7675'; 
+const GLOW_COLOR = '#ffeaa7';
+
+function initConstellation() {
+    if (!canvas) return;
+    ctx = canvas.getContext('2d');
+
+    const wrapper = document.querySelector('.canvas-wrapper');
+    const observer = new ResizeObserver(() => resizeCanvas());
+    observer.observe(wrapper);
+
+    resizeCanvas();
+    requestAnimationFrame(animate); 
+    
+    canvas.addEventListener('mousedown', onMouseDown);
+    canvas.addEventListener('mousemove', onMouseMove);
+    canvas.addEventListener('mouseup', onMouseUp);
+    canvas.addEventListener('touchstart', (e) => onMouseDown(e), {passive: false});
+    canvas.addEventListener('touchmove', (e) => onMouseMove(e), {passive: false});
+    canvas.addEventListener('touchend', onMouseUp);
+}
+
+function resizeCanvas() {
+    const wrapper = document.querySelector('.canvas-wrapper');
+    if(wrapper && wrapper.offsetWidth > 0) {
+        canvasWidth = wrapper.offsetWidth;
+        canvasHeight = wrapper.offsetHeight;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+        createStars();
+    }
+}
+
+function createStars() {
+    stars = starPositions.map(pos => ({
+        ...pos,
+        realX: pos.x * canvasWidth,
+        realY: pos.y * canvasHeight,
+        radius: 10,
+        isHovered: false
+    }));
+}
+
+function getMousePos(evt) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = evt.clientX || (evt.touches && evt.touches[0].clientX);
+    const clientY = evt.clientY || (evt.touches && evt.touches[0].clientY);
+    return { x: clientX - rect.left, y: clientY - rect.top };
+}
+
+/* --- LOGIC KÉO THẢ --- */
+function onMouseDown(evt) {
+    if (isCompleted) return;
+    if (evt.touches) evt.preventDefault();
+    mousePos = getMousePos(evt);
+    dragStartStar = stars.find(s => Math.hypot(s.realX - mousePos.x, s.realY - mousePos.y) < s.radius * 3);
+    if (dragStartStar) isDragging = true;
+}
+
+function onMouseMove(evt) {
+    if (isCompleted) return;
+    if (evt.touches) evt.preventDefault();
+    mousePos = getMousePos(evt);
+    stars.forEach(s => s.isHovered = Math.hypot(s.realX - mousePos.x, s.realY - mousePos.y) < s.radius * 2);
+}
+
+function onMouseUp(evt) {
+    if (!isDragging) return;
+    isDragging = false;
+    mousePos = getMousePos(evt);
+    const dragEndStar = stars.find(s => Math.hypot(s.realX - mousePos.x, s.realY - mousePos.y) < s.radius * 3);
+
+    if (dragEndStar && dragEndStar.id !== dragStartStar.id) {
+        const exists = connections.some(c => 
+            (c.from === dragStartStar.id && c.to === dragEndStar.id) || 
+            (c.from === dragEndStar.id && c.to === dragStartStar.id)
+        );
+        if (!exists) {
+            connections.push({ from: dragStartStar.id, to: dragEndStar.id });
+            checkCompletion();
+        }
+    }
+    dragStartStar = null;
+}
+
+/* --- CHECK WIN & HIỆU ỨNG GIỮ HÌNH --- */
+function checkCompletion() {
+    let matchCount = 0;
+    requiredConnections.forEach(req => {
+        const isMatched = connections.some(c => 
+            (c.from === req[0] && c.to === req[1]) || (c.from === req[1] && c.to === req[0])
+        );
+        if (isMatched) matchCount++;
+    });
+
+    if (matchCount >= requiredConnections.length) {
+        isCompleted = true; // Kích hoạt trạng thái hoàn thành
+        
+        // Đổi thông báo
+        const txt = document.getElementById('instruction-text');
+        if(txt) {
+            txt.innerText = "Tuyệt vời! Những vì sao đã kết tinh...";
+            txt.classList.add('success');
+        }
+
+        // 👇 ĐỢI 2 GIÂY ĐỂ NGẮM HÌNH VẼ PHÁT SÁNG, RỒI MỚI BAY
+        setTimeout(launchFinalCrane, 2000);
+    }
+}
+
+// 2. HÀM BIẾN HÌNH (SMOOTH TRANSITION)
+function launchFinalCrane() {
+    // Thêm class để CSS xử lý việc mờ dần và thu nhỏ (Smooth)
+    const wrapper = document.querySelector('.canvas-wrapper');
+    wrapper.classList.add('fading-out'); 
+    
+    // Cùng lúc đó, hiện con hạc lên
+    const crane = document.getElementById('finalCrane');
+    if(crane) crane.classList.add('fly');
+
+    // Sau khi hạc bay xong (3s) thì hiện thư
+    setTimeout(showFinalLetter, 2800);
+}
+
+function showFinalLetter() {
+    const duration = 3000;
+    const end = Date.now() + duration;
+    (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+    }());
+
+    Swal.fire({
+        title: '💌 Gửi Em, Bé Cưng!',
+        html: `<p>Anh đã nối những vì sao hy vọng thành cánh hạc...</p><p><b>Làm người yêu anh nha? ❤️</b></p>`,
+        confirmButtonText: 'Dạ Đồng Ý! 💍',
+        confirmButtonColor: '#ff7675',
+        backdrop: `rgba(0,0,0,0.8)`
+    }).then(res => { if(res.isConfirmed) Swal.fire('Yêu bé nhất đời! 🥰'); });
+}
+
+function resetGame() {
+    if (isCompleted) return;
+    connections = []; isDragging = false; dragStartStar = null;
+    
+    // Reset giao diện
+    const txt = document.getElementById('instruction-text');
+    if(txt) {
+        txt.innerText = "Hãy nối các vì sao theo đường kẻ mờ nhé...";
+        txt.classList.remove('success');
+    }
+    
+    // Reset hiệu ứng mờ
+    const wrapper = document.querySelector('.canvas-wrapper');
+    wrapper.classList.remove('fading-out'); // 👈 QUAN TRỌNG: Hiện lại khung
+}
+
+/* --- VÒNG LẶP VẼ (ANIMATE) - CÓ GLOW --- */
+function animate() {
+    if(!ctx) return;
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    
+    // Tạo nhịp đập cho hiệu ứng (Pulse)
+    pulseFrame += 0.08; 
+    const pulse = Math.sin(pulseFrame) * 3; // Dao động từ -3 đến 3
+
+    // --- A. NẾU CHƯA XONG: VẼ GỢI Ý ---
+    if (!isCompleted) {
+        ctx.save();
+        ctx.setLineDash([8, 8]); 
+        ctx.lineWidth = 2; 
+        ctx.strokeStyle = 'rgba(255, 118, 117, 0.3)'; 
+        requiredConnections.forEach(pair => {
+            const s1 = stars.find(s => s.id === pair[0]);
+            const s2 = stars.find(s => s.id === pair[1]);
+            if(s1 && s2) {
+                ctx.beginPath(); ctx.moveTo(s1.realX, s1.realY); ctx.lineTo(s2.realX, s2.realY); ctx.stroke();
+            }
+        });
+        ctx.restore();
+    }
+
+    // --- B. VẼ CÁC ĐƯỜNG ĐÃ NỐI ---
+    ctx.save();
+    connections.forEach(conn => {
+        const s1 = stars.find(s => s.id === conn.from);
+        const s2 = stars.find(s => s.id === conn.to);
+        
+        ctx.beginPath(); 
+        ctx.moveTo(s1.realX, s1.realY); 
+        ctx.lineTo(s2.realX, s2.realY);
+
+        // 👇 HIỆU ỨNG "MAGIC" KHI HOÀN THÀNH
+        if (isCompleted) {
+            // Màu vàng kim rực rỡ
+            ctx.strokeStyle = '#ffeaa7'; 
+            ctx.lineWidth = 5 + (pulse * 0.5); // Dây to nhỏ theo nhịp thở
+            ctx.shadowColor = '#fdcb6e'; // Glow vàng
+            ctx.shadowBlur = 20 + (pulse * 2); // Glow mạnh yếu theo nhịp
+        } else {
+            // Màu bình thường
+            ctx.strokeStyle = '#d63031'; 
+            ctx.lineWidth = 4;
+            ctx.shadowColor = '#fab1a0';
+            ctx.shadowBlur = 10;
+        }
+        ctx.stroke();
+    });
+    ctx.restore();
+
+    // --- C. VẼ ĐƯỜNG ĐANG KÉO ---
+    if (isDragging && dragStartStar && !isCompleted) {
+        ctx.save();
+        ctx.shadowBlur = 10; ctx.shadowColor = '#ffeaa7';
+        ctx.beginPath(); ctx.moveTo(dragStartStar.realX, dragStartStar.realY); ctx.lineTo(mousePos.x, mousePos.y);
+        ctx.strokeStyle = '#ff7675'; ctx.lineWidth = 4; ctx.stroke();
+        ctx.restore();
+    }
+
+    // --- D. VẼ CÁC NGÔI SAO ---
+    stars.forEach(s => {
+        const isConnected = connections.some(c => c.from === s.id || c.to === s.id);
+        
+        // Khi hoàn thành, sao cũng đập theo nhịp
+        const currentRadius = isCompleted ? (12 + pulse) : (s.isHovered ? 15 : 10);
+
+        ctx.beginPath(); 
+        ctx.arc(s.realX, s.realY, currentRadius, 0, Math.PI*2);
+        
+        ctx.save();
+        if (isCompleted) {
+            // Sao hoá vàng khi xong
+            ctx.fillStyle = '#fff'; // Tâm trắng
+            ctx.shadowBlur = 30; 
+            ctx.shadowColor = '#fdcb6e'; // Glow vàng mạnh
+        } else if (s.isHovered) {
+            ctx.fillStyle = '#d63031';
+            ctx.shadowBlur = 20; ctx.shadowColor = '#d63031';
+        } else if (isConnected) {
+            ctx.fillStyle = '#e17055';
+            ctx.shadowBlur = 15; ctx.shadowColor = '#e17055';
+        } else {
+            ctx.fillStyle = STAR_COLOR;
+            ctx.shadowBlur = 5; ctx.shadowColor = STAR_COLOR;
+        }
+        
+        ctx.fill();
+        
+        // Viền sao
+        if(!isCompleted) {
+            ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
+        }
+        ctx.restore();
+    });
+
+    requestAnimationFrame(animate);
 }

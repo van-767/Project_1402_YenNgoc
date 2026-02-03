@@ -1600,3 +1600,107 @@ body::-webkit-scrollbar-thumb {
 /* Thanh cuộn đẹp */
 .video-menu-list::-webkit-scrollbar { width: 5px; }
 .video-menu-list::-webkit-scrollbar-thumb { background: #555; border-radius: 10px; }
+/* =========================================
+   SECTION 5: TINH TÚ HẠC (UPGRADE GIAO DIỆN)
+========================================= */
+#section-constellation {
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+
+.constellation-container {
+    width: 100%; max-width: 1000px;
+    position: relative; z-index: 5;
+    display: flex; flex-direction: column; align-items: center;
+}
+
+.constellation-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem; color: #e17055;
+    text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
+    margin-bottom: 5px; line-height: 1.2;
+}
+
+.constellation-subtitle {
+    font-size: 1.1rem; color: #636e72; font-style: italic; margin-bottom: 20px; transition: 0.3s;
+}
+.constellation-subtitle.success { 
+    color: #d63031; font-weight: bold; transform: scale(1.1); text-shadow: 0 0 10px rgba(255, 118, 117, 0.4);
+}
+
+/* --- NÚT VẼ LẠI (STYLE MỚI - ĐẸP HƠN) --- */
+.btn-reset-constellation {
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem; font-weight: bold; color: white;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(255, 118, 117, 0.4);
+    display: flex; align-items: center; gap: 8px;
+}
+
+.btn-reset-constellation:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 118, 117, 0.6);
+    background: linear-gradient(45deg, #ff7675, #fab1a0);
+}
+
+.btn-reset-constellation:active { transform: scale(0.95); }
+
+/* --- KHUNG VẼ CANVAS --- */
+.canvas-wrapper {
+    width: 100%; max-width: 800px; height: 500px;
+    margin: 10px auto 0 auto; position: relative;
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(255, 118, 117, 0.15);
+    backdrop-filter: blur(8px);
+    cursor: crosshair;
+    overflow: hidden;
+    
+    /* 👇 QUAN TRỌNG: Transition cho độ mờ và độ to nhỏ */
+    transition: all 1.5s ease-in-out; 
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Class này sẽ được JS thêm vào khi hoàn thành */
+.canvas-wrapper.fading-out {
+    opacity: 0;
+    transform: scale(0.8); /* Thu nhỏ lại chút xíu khi biến mất */
+    border-color: #ffeaa7; /* Viền chuyển màu vàng sáng */
+    box-shadow: 0 0 50px #ffeaa7; /* Toả sáng trước khi tắt */
+}
+
+canvas { display: block; width: 100%; height: 100%; }
+
+/* --- HẠC BAY --- */
+.final-crane {
+    position: absolute; top: 50%; left: 50%; width: 150px; height: 150px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/2658/2658183.png');
+    background-size: cover;
+    transform: translate(-50%, -50%) scale(0); /* Ban đầu nhỏ xíu */
+    opacity: 0; pointer-events: none; z-index: 10;
+    filter: drop-shadow(0 0 20px #fab1a0);
+    transition: opacity 1s ease-in; /* Hiện ra từ từ */
+}
+
+/* Animation bay lượn */
+.final-crane.fly {
+    opacity: 1; /* Hiện rõ */
+    animation: craneFlyUp 3s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+}
+
+@keyframes craneFlyUp {
+    0% { transform: translate(-50%, -50%) scale(0.5) rotate(0deg); }
+    30% { transform: translate(-50%, -50%) scale(1.2) rotate(-10deg); } /* Phóng to tại chỗ */
+    100% { transform: translate(-50%, -800px) scale(0.8) rotate(15deg); opacity: 0; } /* Bay vút lên */
+}
