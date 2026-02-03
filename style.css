@@ -1644,6 +1644,7 @@ body::-webkit-scrollbar-thumb {
     transition: 0.3s;
     box-shadow: 0 5px 15px rgba(255, 118, 117, 0.4);
     display: flex; align-items: center; gap: 8px;
+    margin: 0 auto 20px auto;
 }
 
 .btn-reset-constellation:hover {

@@ -147,7 +147,7 @@ function setActive(element) {
 }
 
 // 2. Tự động Active khi cuộn chuột
-const sections = document.querySelectorAll('.full-screen-section');
+const sections = document.querySelectorAll('section');
 const navDots = document.querySelectorAll('.nav-dot');
 
 window.addEventListener('scroll', () => {
