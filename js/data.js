@@ -74,101 +74,165 @@ const appData = {
     // 2. TIMELINE (GIỮ NGUYÊN NHƯ CŨ VÌ ĐÃ KHÁ ĐỦ)
     timeline: [
         {
+            date: "19/01/2026",
+            title: "Làm Quen & Lụm Info 🕵️‍♂️",
+            icon: "🔍",
+            img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg",
+            desc: "Bước đầu tiên...",
+            story: "Ngày 19/1/2026: Lần đầu tớ làm quen cậu nè :3. Lụm info từ bạn thân cậu ahhh. Hồi hộp ghê!"
+        },
+        {
+            date: "20/01/2026",
+            title: "Biết Tên Nhau 💬",
+            icon: "✨",
+            img: "assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg",
+            desc: "Yến Ngọc - Cái tên rất đẹp...",
+            story: "Ngày 20/1/2026: Lần đầu tiên cậu rep tớ còn khá dè dặt nè, cũng là ngày đầu tiên tớ biết tên cậu là Yến Ngọc (1 cái tên rất đẹp)."
+        },
+        {
             date: "21/01/2026",
-            title: "Chú Thỏ Len & Xương Rồng 🐰",
+            title: "Khoe Mèo 🐱",
+            icon: "😺",
+            img: "assets/img/cat/z7489997715011_d6728a1abab7f8c4362774c8d91b4024.jpg",
+            desc: "Những chú mèo đáng yêu...",
+            story: "Ngày 21/1/2026: Cậu lần đầu khoe mèo cho tớ xem nè. Cưng xỉu!"
+        },
+        {
+            date: "21/01/2026",
+            title: "Thỏ Len & Xương Rồng 🐰",
             icon: "🧶",
             img: "assets/img/cuti/z7489997568543_be4f1eecc888849d14489db0b9048c3f.jpg",
-            desc: "Lần đầu cậu khoe sự khéo tay...",
-            story: "Ngày 21/1/2026: Cậu khoe ảnh chú thỏ 7 màu đan bằng len và cây xương rồng cậu chăm sóc. <br>👉 Ấn tượng đầu: Cô gái này khéo tay và tỉ mỉ quá!"
+            desc: "Sự khéo tay của bé...",
+            story: "Ngày 21/1/2026: Lần đầu cậu khoe ảnh thỏ 7 màu đan bằng len, khoe cây xương rồng cậu chăm sóc nữa."
         },
         {
             date: "22/01/2026",
-            title: "Phá Băng Trái Tim ❄️",
+            title: "Phá Băng ❄️",
             icon: "🔥",
-            img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg",
-            desc: "Chạm nhẹ vào thế giới của cậu...",
-            story: "Ngày 22/1/2026: Tớ cảm nhận được tảng băng mang tên Yến Ngọc bắt đầu tan chảy. Tớ đã bước được một chân vào thế giới nội tâm của cậu."
+            img: "assets/img/cuti/z7489997568441_255ce23f96785340bcec320eb390e730.jpg",
+            desc: "Chạm nhẹ vào trái tim...",
+            story: "Ngày 22/1/2026: Phá băng bên trong cậu 1 chút. Tớ cảm nhận được sự ấm áp đang dần hé lộ."
         },
         {
             date: "24/01/2026",
-            title: "Biến Cố & Mẹ Gank 🏥",
+            title: "Biến Cố Sức Khỏe 🏥",
             icon: "💊",
-            img: "assets/img/cuti/z7489997568441_255ce23f96785340bcec320eb390e730.jpg",
-            desc: "Nhập viện, đi chơi và drama đêm khuya...",
-            story: "Ngày 24/1/2026 - Một ngày đáng nhớ:<br>1. Cậu nhập viện (sốt cao, đau dạ dày). Xót ghê!<br>2. Lần đầu nhận lời đi chơi với tớ.<br>3. Lần đầu tâm sự chuyện thầm kín.<br>4. Kỷ niệm hài: Đang nhắn tin đêm thì bị Mẹ gank! 😂"
+            img: "assets/img/food/z7489997577586_0f879219c56b94658e4482365eb6ead5.jpg",
+            desc: "Lo lắng cho cậu...",
+            story: "Ngày 24/1/2026: Cậu nhập viện vì bị bệnh viêm loét dạ dày + sốt cao. Thương ghê gớm!"
+        },
+        {
+            date: "24/01/2026",
+            title: "Lời Mời Đi Chơi 🎫",
+            icon: "🎡",
+            img: "assets/img/food/z7489997635060_36d73097dd86aafa79e308d3b549ac57.jpg",
+            desc: "Bước tiến lớn...",
+            story: "Ngày 24/1/2026: Lần đầu cậu nhận lời mời đi chơi của tớ. Vui không tả nổi!"
+        },
+        {
+            date: "24/01/2026",
+            title: "Mở Lòng Chia Sẻ 🔓",
+            icon: "🗝️",
+            img: "assets/img/food/z7489997635173_c207f7c6bdb0cd07d9f9163fd43903b1.jpg",
+            desc: "Tâm sự đêm khuya...",
+            story: "Ngày 24/1/2026: Lần đầu cậu mở lòng chia sẻ những chuyện trong lòng cậu với tớ."
+        },
+        {
+            date: "24/01/2026",
+            title: "Bị Mẹ Gank 😂",
+            icon: "👀",
+            img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg",
+            desc: "Sự cố hài hước...",
+            story: "Ngày 24/1/2026: Cậu bị mẹ cậu gank lúc nhắn tin tớ ban đêm =))). Kỷ niệm khó quên!"
         },
         {
             date: "25/01/2026",
-            title: "Câu nói: 'Nhớ tớ' 💌",
+            title: "Câu nói: \"Nhớ tớ\" 💌",
             icon: "💓",
-            img: "assets/img/cat/z7489997715011_d6728a1abab7f8c4362774c8d91b4024.jpg",
-            desc: "Tim tớ lỡ một nhịp...",
-            story: "Ngày 25/1/2026: Lần đầu tiên cậu nhắn: 'Nhớ tớ :33'.<br>Trời ơi tin được không? Tim tớ như ngừng đập. (Sau đó bé lại bị Mẹ tra khảo, thương bé)."
+            img: "assets/img/cat/z7489997710056_f80c153621c2183dadf0570026cc2a44.jpg",
+            desc: "Tim rung rinh...",
+            story: "Ngày 25/1/2026: Lần đầu tiên cậu nhắn nhớ tớ :33. Cũng bị mẹ tra khảo nữa, thương bé."
         },
         {
             date: "26/01/2026",
-            title: "Quốc Bộ & Hạc Giấy 🎹",
+            title: "Tiếng Đàn Tặng Tớ 🎹",
             icon: "🎵",
             img: "assets/img/cat/z7489997697774_cc8b565ef0caf5b47c61c0696db47870.jpg",
-            desc: "Những món quà tinh thần...",
-            story: "Ngày 26/1/2026:<br>- Được nghe cậu đàn (dù video bị cắt còn 40s).<br>- Tớ kể chuyện suýt phải đi bộ 10km.<br>- Biết ý nghĩa Hạc Giấy & Ngôi Sao cậu gấp: Dành tặng cho người đặc biệt trong tương lai."
+            desc: "Giai điệu ngọt ngào...",
+            story: "Ngày 26/1/2026: Lần đầu được cậu đàn tặng mặc dù cắt còn 40s nhưng tớ rất vui và trân trọng."
+        },
+        {
+            date: "26/01/2026",
+            title: "Quốc Bộ 10km 🏃",
+            icon: "👟",
+            img: "assets/img/cat/z7489997717234_ed711c909733d4487dc018617d4fb621.jpg",
+            desc: "Kỷ niệm hài hước...",
+            story: "Ngày 26/1/2026: Lần đầu kể mẩu chuyện tý thì quốc bộ 10km của tớ cho cậu nghe."
+        },
+        {
+            date: "26/01/2026",
+            title: "Hạc Giấy & Ngôi Sao 🎐",
+            icon: "⭐",
+            img: "assets/img/cat/z7489997725903_ff7bf6b0a5185e66ec6966bde804d780.jpg",
+            desc: "Ý nghĩa sâu sắc...",
+            story: "Ngày 26/1/2026: Lần đầu tớ biết đến ý nghĩa hạc giấy và ý nghĩa của những ngôi sao của cậu dành cho đối tượng tương lai."
         },
         {
             date: "27/01/2026",
-            title: "Sự Thật & Du Học ✈️",
-            icon: "🌏",
+            title: "Trải Lòng & Làm Bạn 🤝",
+            icon: "🌱",
             img: "assets/img/food/z7489997630500_d32b37cee8feb2b1ac066dfd6626272b.jpg",
-            desc: "Lo sợ, đẩy đưa và tin chấn động...",
-            story: "Ngày 27/1/2026:<br>- Cậu sợ, muốn đẩy tớ ra xa làm bạn. Tớ kiên quyết ở lại.<br>- Cậu nhận xét về con người tớ.<br>- Tin chấn động: Cậu sẽ đi du học. Tớ buồn, nhưng sẽ ủng hộ cậu."
+            desc: "Khoảng cách và thấu hiểu...",
+            story: "Ngày 27/1/2026: Chia sẻ trải lòng vì lo sợ cậu đang dè dặt với tớ. Cũng là lần đầu cậu đẩy tớ bảo tớ làm bạn, nhưng tớ đã cùng cậu cảm nhận được để thoải mái với tớ hơn."
         },
         {
-    date: "28/01/2026",
-    title: "[TIÊU ĐỀ NGÀY 28]", // Ví dụ: Đi dạo công viên
-    icon: "🌸", // Chọn icon hợp ý (🌸, 🎬, 🍕...)
-    img: "assets/img/cuti/z7489997568543_be4f1eecc888849d14489db0b9048c3f.jpg", // Thay ảnh khác nếu có
-    desc: "[Mô tả ngắn gọn ngày 28]", 
-    story: "[Copy nội dung chi tiết trong Word dán vào đây].<br>Xuống dòng thì dùng thẻ <br> nhé."
-    },
-    {
-        date: "29/01/2026",
-        title: "[TIÊU ĐỀ NGÀY 29]",
-        icon: "🎬",
-        img: "assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg",
-        desc: "[Mô tả ngắn gọn ngày 29]",
-        story: "[Nội dung chi tiết ngày 29...]"
-    },
-    {
-        date: "30/01/2026",
-        title: "[TIÊU ĐỀ NGÀY 30]",
-        icon: "☕",
-        img: "assets/img/food/z7489997629577_22e3146f31a789f2c5b246eed569aee5.jpg",
-        desc: "[Mô tả ngắn gọn ngày 30]",
-        story: "[Nội dung chi tiết ngày 30...]"
-    },
-    {
-        date: "31/01/2026",
-        title: "[TIÊU ĐỀ NGÀY 31]",
-        icon: "✨",
-        img: "assets/img/cat/z7489997710056_f80c153621c2183dadf0570026cc2a44.jpg",
-        desc: "[Mô tả ngắn gọn ngày 31]",
-        story: "[Nội dung chi tiết ngày 31...]"
-    },
-    {
-        date: "01/02/2026",
-        title: "[TIÊU ĐỀ NGÀY 1/2]",
-        icon: "📅",
-        img: "assets/img/cat/z7489997717234_ed711c909733d4487dc018617d4fb621.jpg",
-        desc: "[Tháng mới, khởi đầu mới...]",
-        story: "[Nội dung chi tiết ngày 1/2...]"
-    },
-    {
-        date: "02/02/2026",
-        title: "[TIÊU ĐỀ NGÀY 2/2]",
-        icon: "❤️",
-        img: "assets/img/cuti/z7489997568441_255ce23f96785340bcec320eb390e730.jpg",
-        desc: "[Sự kiện đặc biệt ngày 2/2]",
-        story: "[Nội dung chi tiết ngày 2/2...]"
-    }
+            date: "27/01/2026",
+            title: "Sự Thật & Du Học 🌏",
+            icon: "✈️",
+            img: "assets/img/food/z7489997629577_22e3146f31a789f2c5b246eed569aee5.jpg",
+            desc: "Những bí mật hé lộ...",
+            story: "Ngày 27/1/2026: Lần đầu cậu chia sẻ cảm nhận về tớ :3 về con người tớ, tính cách tớ. Cũng là lần đầu tớ biết cậu sẽ đi du học."
+        },
+        {
+            date: "27/01/2026",
+            title: "Thay Đổi Quyết Định ❤️",
+            icon: "🔄",
+            img: "assets/img/food/z7489997570941_d7e3b27cc10971db5694883b5d22287c.jpg",
+            desc: "Giữ lại hy vọng...",
+            story: "Ngày 27/1/2026: Nhắn hết tâm tình cậu mới thay đổi quyết định không đuổi tớ nữa :3."
+        },
+        {
+            date: "27/01/2026",
+            title: "Sự Kiên Trì Của Tớ 💪",
+            icon: "🔥",
+            img: "assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg",
+            desc: "Lì đòn...",
+            story: "Ngày 27/1/2026: Tới đêm cậu lại đuổi tớ do sợ tớ đợi thiệt thòi nhưng tớ lì quá mà =))) quyết tâm cho bằng được :>"
+        },
+        {
+            date: "28/01/2026",
+            title: "Tìm Hiểu Sở Thích 🍜",
+            icon: "🔍",
+            img: "assets/img/food/z7489997630500_d32b37cee8feb2b1ac066dfd6626272b.jpg",
+            desc: "Hiểu nhau hơn...",
+            story: "Ngày 28/1/2026: Lần đầu tớ và cậu tìm hiểu món yêu thích của nhau :3 và tìm hiểu về nhau."
+        },
+        {
+            date: "30/01/2026",
+            title: "Vượt Qua Nỗi Buồn ☔",
+            icon: "🌈",
+            img: "assets/img/cat/z7489997646132_9b3754877bfaca2bec81a2618d6f9c65.jpg",
+            desc: "Luôn bên cạnh cậu...",
+            story: "Ngày 30/1/2026: Cậu có chuyện buồn cá nhân còn bảo tớ ngưng nhắn 10 ngày nữa, còn làm cậu khóc nữa. Nhưng may sao tớ đã cố gắng giúp đỡ cậu vượt qua 1 phần nào đó :<<"
+        },
+        {
+            date: "01/02/2026",
+            title: "Những Mẩu Chuyện 📖",
+            icon: "🗣️",
+            img: "assets/img/cat/z7489997732995_478588c95dfd3c72a1b81d1c8e802683.jpg",
+            desc: "Ngày càng gắn kết...",
+            story: "Ngày 1/2/2026: Tớ tìm hiểu cậu tới bây giờ và cậu kể cho tớ rất nhiều mẩu chuyện thú vị nữa :>"
+        }
     ],
 
     // 3. DANH SÁCH NHẠC (Giữ nguyên)
