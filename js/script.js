@@ -573,3 +573,101 @@ function showRedFlagEffect() {
         customClass: { popup: 'fear-popup' }
     });
 }
+/* =========================================
+   RENDER TIMELINE: FINAL SNAKE (HOÀN HẢO)
+========================================= */
+function renderTimeline() {
+    // 1. CHUẨN BỊ DỮ LIỆU (GỘP TIMELINE + TƯƠNG LAI)
+    const fullData = [...appData.timeline]; 
+    
+    // Thêm Easter Egg vào cuối cùng của danh sách
+    fullData.push({
+        isFuture: true, // Đánh dấu đây là hộp tương lai
+        title: 'Tương Lai',
+        date: '???',
+        icon: '<i class="fas fa-question"></i>'
+    });
+
+    const container = document.getElementById('timeline-content');
+    if (!container) return;
+
+    // 2. TÍNH TOÁN SỐ CỘT (RESPONSIVE)
+    const w = window.innerWidth;
+    let itemsPerRow = 3; // Desktop mặc định 3 cột
+    if (w <= 768) itemsPerRow = 1; // Mobile 1 cột (Thẳng đứng)
+    else if (w <= 1024) itemsPerRow = 2; // Tablet 2 cột
+
+    // 3. CHIA DỮ LIỆU THÀNH CÁC HÀNG (CHUNKS)
+    const rows = [];
+    for (let i = 0; i < fullData.length; i += itemsPerRow) {
+        rows.push(fullData.slice(i, i + itemsPerRow));
+    }
+
+    let html = '';
+
+    // 4. VẼ TỪNG HÀNG
+    rows.forEach((rowItems, rowIndex) => {
+        // Hàng lẻ (index 1, 3...) thì đảo ngược chiều (Rắn bò ngược)
+        const isReverse = rowIndex % 2 !== 0; 
+        const rowClass = isReverse ? 'snake-row reverse' : 'snake-row';
+
+        html += `<div class="${rowClass}" data-aos="fade-up">`;
+
+        // Render từng item trong hàng
+        rowItems.forEach((item, index) => {
+            // Kiểm tra xem có vẽ mũi tên NGANG không?
+            // (Chỉ vẽ nếu không phải là item cuối cùng của hàng này)
+            const showHorizontalArrow = index < rowItems.length - 1;
+
+            // Kiểm tra xem có vẽ mũi tên DỌC (Xuống dòng) không?
+            // (Chỉ vẽ ở item cuối cùng của hàng, và không phải là hàng cuối cùng của timeline)
+            const showVerticalArrow = (index === rowItems.length - 1) && (rowIndex < rows.length - 1);
+
+            html += `<div class="snake-item">`;
+
+            if (item.isFuture) {
+                // --- RENDERING HỘP TƯƠNG LAI ---
+                html += `
+                <div class="snake-point" style="border-color:#ffeaa7; background:#2d3436;">${item.icon}</div>
+                <div class="snake-card" style="border:none; background:none; padding:0;">
+                    <div class="future-box-wrapper" onclick="checkFuture()">
+                        <h3 style="color:#ffeaa7; margin:0">${item.title}</h3>
+                        <span style="font-size:0.8rem; color:#ccc">${item.date}</span>
+                    </div>
+                </div>`;
+            } else {
+                // --- RENDERING SỰ KIỆN THƯỜNG ---
+                html += `
+                <div class="snake-point" onclick="showMemory('${item.title}', '${item.story}', '${item.img}')">
+                    ${item.icon}
+                </div>
+                <div class="snake-card" onclick="showMemory('${item.title}', '${item.story}', '${item.img}')">
+                    <span class="snake-date">${item.date}</span>
+                    <h3 class="snake-title">${item.title}</h3>
+                </div>`;
+            }
+
+            // MŨI TÊN NGANG (Đi tiếp)
+            if (showHorizontalArrow) {
+                html += `<div class="arrow-horizontal"><i class="fas fa-long-arrow-alt-right"></i></div>`;
+            }
+
+            // MŨI TÊN DỌC (Xuống dòng - Nối tiếp)
+            if (showVerticalArrow) {
+                html += `<div class="arrow-vertical-connector"><i class="fas fa-level-down-alt"></i></div>`;
+            }
+
+            html += `</div>`; // Đóng .snake-item
+        });
+
+        html += `</div>`; // Đóng .snake-row
+    });
+
+    container.innerHTML = html;
+}
+
+// Lắng nghe resize để vẽ lại (quan trọng để tính lại số cột)
+window.addEventListener('resize', () => {
+    clearTimeout(window.resizeTimer);
+    window.resizeTimer = setTimeout(renderTimeline, 200);
+});
