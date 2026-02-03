@@ -1561,3 +1561,42 @@ body::-webkit-scrollbar-thumb {
     .polaroid-img { height: 140px; }
     .rope-container { height: 200px; }
 }
+/* =========================================
+   STYLE CHO MENU CHỌN VIDEO
+========================================= */
+.video-menu-list {
+    display: flex; flex-direction: column; gap: 15px;
+    max-height: 400px; overflow-y: auto;
+    padding: 10px;
+}
+
+.video-menu-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex; align-items: center; gap: 15px;
+    text-align: left;
+}
+
+.video-menu-item:hover {
+    background: #ff7675;
+    border-color: #ff7675;
+    transform: translateX(10px);
+    box-shadow: 0 5px 15px rgba(255, 118, 117, 0.3);
+}
+
+.vid-icon {
+    font-size: 2rem; color: #ffeaa7;
+}
+.video-menu-item:hover .vid-icon { color: white; }
+
+.vid-info h4 { margin: 0; color: white; font-size: 1.1rem; }
+.vid-info p { margin: 5px 0 0 0; color: #ccc; font-size: 0.85rem; font-style: italic; }
+.video-menu-item:hover .vid-info p { color: rgba(255,255,255,0.8); }
+
+/* Thanh cuộn đẹp */
+.video-menu-list::-webkit-scrollbar { width: 5px; }
+.video-menu-list::-webkit-scrollbar-thumb { background: #555; border-radius: 10px; }

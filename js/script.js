@@ -832,28 +832,82 @@ function viewPhoto(img, caption) {
     });
 }
 
-// --- MÁY CHIẾU PHIM (VIDEO) ---
+/* =========================================
+   1. HIỆN MENU CHỌN PHIM
+========================================= */
 function showVideoProjector() {
-    // Sư Phụ có thể thay link YouTube vào đây
-    // Hoặc nếu là file video local thì dùng thẻ <video>
-    const videoHtml = `
-        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
-            <iframe style="position:absolute; top:0; left:0; width:100%; height:100%;" 
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
-            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p style="margin-top:15px; font-style:italic; color:#aaa">"Thước phim này dành riêng cho em..."</p>
-    `;
+    const videos = appData.video_gallery;
+    let listHtml = `<div class="video-menu-list">`;
+
+    videos.forEach((v, index) => {
+        // Icon tùy loại video
+        const icon = v.type === 'youtube' ? '<i class="fab fa-youtube"></i>' : '<i class="fas fa-file-video"></i>';
+        
+        listHtml += `
+        <div class="video-menu-item" onclick="playSelectedVideo(${index})">
+            <div class="vid-icon">${icon}</div>
+            <div class="vid-info">
+                <h4>${v.title}</h4>
+                <p>${v.desc}</p>
+            </div>
+        </div>`;
+    });
+    listHtml += `</div>`;
 
     Swal.fire({
-        title: '🎥 Rạp Chiếu Phim Mini 🍿',
-        html: videoHtml,
+        title: '🎬 RẠP CHIẾU PHIM LOVE STORY 🍿',
+        html: listHtml,
+        background: '#1e272e',
+        color: '#fff',
+        showConfirmButton: false, // Không cần nút đóng, bấm ra ngoài là đóng
+        showCloseButton: true,
+        width: 600
+    });
+}
+
+/* =========================================
+   2. PHÁT VIDEO ĐÃ CHỌN
+========================================= */
+function playSelectedVideo(index) {
+    const v = appData.video_gallery[index];
+    let playerHtml = '';
+
+    if (v.type === 'youtube') {
+        // Nếu là Youtube
+        playerHtml = `
+            <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px;">
+                <iframe style="position:absolute; top:0; left:0; width:100%; height:100%;" 
+                src="https://www.youtube.com/embed/${v.link}?autoplay=1" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>`;
+    } else {
+        // Nếu là File Local (Trong máy)
+        playerHtml = `
+            <div style="width: 100%; background: #000; border-radius: 10px; overflow: hidden;">
+                <video width="100%" height="auto" controls autoplay>
+                    <source src="${v.link}" type="video/mp4">
+                    Trình duyệt không hỗ trợ video này.
+                </video>
+            </div>`;
+    }
+
+    // Hiện Player
+    Swal.fire({
+        title: `🎥 Đang chiếu: ${v.title}`,
+        html: playerHtml + `<p style="margin-top:15px; color:#aaa; font-style:italic">"${v.desc}"</p>`,
         width: 800,
         background: '#000',
         color: '#fff',
         showConfirmButton: true,
-        confirmButtonText: 'Đóng rạp',
-        confirmButtonColor: '#d63031',
-        backdrop: `rgba(0,0,0,0.9)`
+        confirmButtonText: '🔙 Quay lại chọn phim',
+        confirmButtonColor: '#341f97',
+        showCancelButton: true,
+        cancelButtonText: 'Đóng rạp',
+        cancelButtonColor: '#d63031',
+        backdrop: `rgba(0,0,0,0.95)`
+    }).then((result) => {
+        if (result.isConfirmed) {
+            showVideoProjector(); // Quay lại menu
+        }
     });
 }

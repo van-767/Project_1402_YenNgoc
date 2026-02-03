@@ -263,4 +263,31 @@ const appData = {
         { img: "assets/img/food/z7489997635173_c207f7c6bdb0cd07d9f9163fd43903b1.jpg", caption: "Yummy 🍜", rotate: 3, delay: 0.8 },
         { img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg", caption: "Cute xỉu ❤️", rotate: -4, delay: 1.2 }
     ],
+    // 5. RẠP CHIẾU PHIM (DANH SÁCH VIDEO)
+    video_gallery: [
+        {
+            title: "🎹 Giai điệu ngày 26/1 (Piano)",
+            type: "local", // Video tải lên host
+            link: "assets/video/About_life_jade/7489997559009.mp4", // Thay đường dẫn file của Sư Phụ vào
+            desc: "Tuy chỉ 40s nhưng là cả tấm lòng..."
+        },
+        {
+            title: "🌊 Kỷ niệm Vũng Tàu",
+            type: "youtube", // Video Youtube
+            link: "ABCxyz123", // Thay ID video Youtube vào (Ví dụ: https://youtu.be/ABCxyz123)
+            desc: "Những ngày nắng đẹp bên nhau."
+        },
+        {
+            title: "🎤 Bé hát vu vơ",
+            type: "local",
+            link: "assets/video/be_hat.mp4",
+            desc: "Giọng hát ngọt ngào nhất thế giới."
+        },
+        {
+            title: "🐱 Mèo con cute",
+            type: "youtube",
+            link: "dQw4w9WgXcQ", // ID Youtube demo
+            desc: "Xem giải trí xíu nè."
+        }
+    ],
 };
