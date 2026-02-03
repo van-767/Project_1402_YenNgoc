@@ -1135,3 +1135,77 @@ body::-webkit-scrollbar-thumb {
     0% { transform: scale(1) rotate(0deg); opacity: 0.8; }
     100% { transform: scale(1.2) rotate(45deg); opacity: 1; }
 }
+/* =========================================
+   STYLE CHO KHU VỰC CẢM XÚC (LOVE TAB)
+========================================= */
+
+.emotion-buttons {
+    display: flex; flex-direction: column; gap: 15px; margin-top: 20px;
+}
+
+.btn-emotion {
+    width: 100%; padding: 15px; border-radius: 15px;
+    font-size: 1.1rem; font-weight: bold; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: 0.3s; position: relative; overflow: hidden;
+    font-family: var(--font-main);
+}
+
+/* Nút Happy (Xanh ngọc/Hồng) */
+.btn-emotion.happy {
+    background: linear-gradient(135deg, #55efc4, #81ecec);
+    color: #006266; border: none;
+    box-shadow: 0 5px 15px rgba(85, 239, 196, 0.4);
+}
+.btn-emotion.happy:hover { transform: translateY(-3px) scale(1.02); }
+
+/* Nút Sad (Đen/Đỏ) */
+.btn-emotion.sad {
+    background: #2d3436; color: #ff7675;
+    border: 2px solid #ff7675;
+    box-shadow: 0 5px 15px rgba(45, 52, 54, 0.4);
+}
+.btn-emotion.sad:hover { 
+    background: #d63031; color: white; border-color: #d63031;
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* --- POPUP STYLE --- */
+
+/* Happy Popup */
+.happy-popup { border-radius: 25px !important; border: 5px solid #ff7675; }
+.happy-list { list-style: none; text-align: left; padding: 0 10px; }
+.happy-list li {
+    margin-bottom: 10px; padding-left: 25px; position: relative;
+    color: #2d3436; font-weight: 600; font-size: 1.1rem;
+}
+.happy-list li::before {
+    content: '💖'; position: absolute; left: 0; top: 0;
+}
+.heart-beat {
+    font-size: 4rem; color: #ff7675; margin-bottom: 15px;
+    animation: heartBeat 1.5s infinite;
+}
+
+/* Fear Popup */
+.fear-popup { border-radius: 25px !important; border: 1px solid #d63031; box-shadow: 0 0 30px #d63031; }
+.fear-list { list-style: none; text-align: left; padding: 0 10px; }
+.fear-list li {
+    margin-bottom: 12px; padding-left: 25px; position: relative;
+    color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.5;
+}
+.fear-list li::before {
+    content: '⚡'; position: absolute; left: 0; top: 0; color: #fab1a0;
+}
+.storm-shake {
+    font-size: 4rem; color: #dfe6e9; margin-bottom: 15px;
+    animation: shake 0.5s infinite;
+}
+.emotion-quote {
+    font-style: italic; margin-top: 20px; font-weight: bold; opacity: 0.8;
+}
+.emotion-quote.red { color: #ff7675; }
+
+/* Animations */
+@keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+@keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }

@@ -420,18 +420,28 @@ function renderProfile() {
                 </div>
 
                 <div id="tab-love" class="tab-pane animate__animated animate__fadeIn">
-                    <h3 class="tab-heading">Chuyện Tình Yêu</h3>
+                    <h3 class="tab-heading">Chuyện Tình Yêu 💌</h3>
+                    
                     <div class="love-card">
                         <h4>💘 Gu Bạn Trai</h4>
                         <p>${p.love_story.ideal_type}</p>
                     </div>
+
                     <div class="love-card special" onclick="showOrigamiSecret()">
-                        <h4>🎐 Bí Mật Hạc Giấy (Bấm xem)</h4>
-                        <p style="font-style:italic; opacity:0.8">"Tớ đã gấp hạc từ nhỏ để dành tặng cho..."</p>
+                        <h4>🎐 Bí Mật Hạc Giấy & Ngôi Sao (Bấm xem)</h4>
+                        <div style="font-size:0.8rem; opacity:0.8; margin-top:5px">"Điều ước tớ dành dụm cho cậu..."</div>
                     </div>
-                    <div class="love-card warning">
-                        <h4>⚠️ Red Flags</h4>
-                        <p>${p.love_story.red_flags}</p>
+
+                    <div class="emotion-buttons">
+                        
+                        <button class="btn-emotion happy" onclick="showGreenFlagEffect()">
+                            <i class="fas fa-shield-alt"></i> Điều Gì Khiến Bé An Lòng?
+                        </button>
+
+                        <button class="btn-emotion sad" onclick="showRedFlagEffect()">
+                            <i class="fas fa-biohazard"></i> Nỗi Sợ & Vùng Cấm Địa
+                        </button>
+                        
                     </div>
                 </div>
 
@@ -496,5 +506,70 @@ function showOrigamiSecret() {
         customClass: {
             popup: 'galaxy-popup' // Class riêng để chỉnh CSS
         }
+    });
+}
+/* =========================================
+   HIỆU ỨNG ĐẶC BIỆT: RED FLAG & GREEN FLAG
+========================================= */
+
+// 1. HIỆU ỨNG HẠNH PHÚC (GREEN FLAGS)
+function showGreenFlagEffect() {
+    // Bắn tim hồng + vàng
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+    confetti({ ...defaults, particleCount: 60, origin: { x: 0.3, y: 0.5 }, colors: ['#55efc4', '#ffeaa7'] });
+    confetti({ ...defaults, particleCount: 60, origin: { x: 0.7, y: 0.5 }, colors: ['#fab1a0', '#fd79a8'] });
+
+    // Lấy dữ liệu
+    const happyList = appData.profile.love_story.happiness;
+    
+    // Hiện Popup ấm áp
+    Swal.fire({
+        title: '✨ Thế Giới Bình Yên Của Bé',
+        html: `
+            <div class="emotion-content">
+                <div class="heart-beat"><i class="fas fa-heart"></i></div>
+                <ul class="happy-list">
+                    ${happyList.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+                <p class="emotion-quote">"Chỉ cần tớ cảm nhận bản thân là quan trọng nhất..."</p>
+            </div>
+        `,
+        background: '#fff0f3',
+        color: '#2d3436',
+        showConfirmButton: true,
+        confirmButtonText: 'Hứa sẽ mang lại bình yên ❤️',
+        confirmButtonColor: '#ff7675',
+        customClass: { popup: 'happy-popup' }
+    });
+}
+
+// 2. HIỆU ỨNG NỖI SỢ (RED FLAGS) - NỔ TUNG!
+function showRedFlagEffect() {
+    // Bắn màu đen + đỏ (Cảm giác nguy hiểm/bão tố)
+    const defaults = { startVelocity: 45, spread: 360, ticks: 100, zIndex: 10000 };
+    confetti({ ...defaults, particleCount: 100, origin: { y: 0.6 }, colors: ['#2d3436', '#d63031', '#636e72'] });
+
+    // Lấy dữ liệu
+    const fears = appData.profile.love_story.fears;
+
+    // Hiện Popup Tối (Dark Mode)
+    Swal.fire({
+        title: '⛈️ Vùng Tổn Thương & Nỗi Sợ',
+        html: `
+            <div class="emotion-content">
+                <div class="storm-shake"><i class="fas fa-cloud-showers-heavy"></i></div>
+                <ul class="fear-list">
+                    ${fears.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+                <p class="emotion-quote red">"Đừng bao giờ bảo tớ 'Ngủ đi mai tính'..."</p>
+            </div>
+        `,
+        background: '#2d3436', // Nền đen
+        color: '#dfe6e9',      // Chữ trắng
+        showConfirmButton: true,
+        confirmButtonText: 'Sẽ không bao giờ để em một mình 🛡️',
+        confirmButtonColor: '#d63031',
+        backdrop: `rgba(0,0,0,0.85)`, // Tối thui màn hình
+        customClass: { popup: 'fear-popup' }
     });
 }

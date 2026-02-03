@@ -47,11 +47,27 @@ const appData = {
             note: "Có thể ăn hết 2 bịch KitKat lớn trong 1 ngày. Thích đi dạo và ăn vặt."
         },
 
-        // --- 5. CHUYỆN TÌNH YÊU (TAB 4) ---
+// --- 5. CHUYỆN TÌNH YÊU (PHẦN QUAN TRỌNG NHẤT) ---
         love_story: {
-            ideal_type: "Thích người học giỏi (hơn vẻ ngoài), tinh tế, kiên nhẫn (vì bé nhắn tin chậm), có ý chí phấn đấu. Không thích người quá béo. Chiều cao không quan trọng.",
+            ideal_type: "Thích người học giỏi (hơn vẻ ngoài), tinh tế, kiên nhẫn, có ý chí phấn đấu. Không thích người quá béo. Chiều cao không quan trọng.",
             origami_secret: "Từ nhỏ tớ đã gấp hạc và sao. Tớ suy nghĩ: Đến lúc gặp được người ấy, tớ sẽ tặng tất cả hạc và sao đã gấp trong những năm tháng chưa gặp nhau. Đó là khoảng thời gian và những điều ước tớ dành dụm cho cậu.",
-            red_flags: "Ghét sự hời hợt, ghét bị hối thúc. Trong tình yêu cần sự an toàn tuyệt đối và sự trân trọng."
+            
+            // HẠNH PHÚC (GREEN FLAGS)
+            happiness: [
+                "Sự quan tâm trên ngưỡng mong đợi.",
+                "Cảm giác AN TOÀN tuyệt đối.",
+                "Luôn được ưu tiên là QUAN TRỌNG NHẤT."
+            ],
+
+            // NỖI SỢ & TỔN THƯƠNG (RED FLAGS)
+            fears: [
+                "Sợ người né tránh vấn đề, dễ dàng từ bỏ tình yêu.",
+                "Sợ bị bỏ rơi lúc khó khăn thay vì cùng chia sẻ.",
+                "Ghét câu 'Ngủ đi mai tính' khi cãi vã (Muốn giải quyết luôn).",
+                "Không cần lời động viên 'Cố lên' từ phía sau, tớ cần người đứng CẠNH BÊN cùng giải quyết.",
+                "Ghét sự lảng tránh khi đối phương bị stress.",
+                "Cực ghét lý do: 'Không hợp', 'Hết cảm xúc', 'Áp lực quá' (Chỉ là ngụy biện cho hết yêu)."
+            ]
         }
     },
 
