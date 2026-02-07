@@ -51,7 +51,7 @@ function checkPass() {
             Swal.fire({
                 icon: 'question',
                 title: 'Ủa alo?',
-                text: 'Nhập sai rồi kìa! Sư phụ quên ngày sinh mình hả? 😝',
+                text: 'Nhập sai rồi kìa! Cậu quên ngày sinh mình hả? 😝',
                 confirmButtonColor: '#ff9a9e'
             });
         } else if (wrongCount === 2) {
@@ -352,7 +352,7 @@ function renderProfile() {
         <div class="profile-static-left">
             <div class="avatar-container">
                 <div class="avatar-ring"></div>
-                <img src="${p.avatar}" alt="Avatar" class="main-avatar">
+                <img src="${p.avatar_thumbnail}" alt="Avatar" class="main-avatar">
             </div>
             
             <h2 class="profile-name">${p.fullname} <i class="fas fa-check-circle verified-icon"></i></h2>
@@ -501,7 +501,7 @@ function showOrigamiSecret() {
         confirmButtonColor: '#a29bfe',
         backdrop: `
             rgba(0,0,20,0.8)
-            url("assets/img/cuti/z7489997568543_be4f1eecc888849d14489db0b9048c3f.jpg")
+            url("")
             left center
             no-repeat
         `,

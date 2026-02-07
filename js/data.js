@@ -9,6 +9,7 @@ const appData = {
         nickname: "Bé Cưng ❤️",
         dob: "06/05/2005 (Kim Ngưu ♉)",
         avatar: "assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg",
+        avatar_thumbnail: "assets/img/cuti/avt.webp",
         
         // --- 1. THÔNG TIN CƠ BẢN (TAB 1) ---
         basic_info: [
@@ -50,7 +51,7 @@ const appData = {
 // --- 5. CHUYỆN TÌNH YÊU (PHẦN QUAN TRỌNG NHẤT) ---
         love_story: {
             ideal_type: "Thích người học giỏi (hơn vẻ ngoài), tinh tế, kiên nhẫn, có ý chí phấn đấu. Không thích người quá béo. Chiều cao không quan trọng.",
-            origami_secret: "Từ nhỏ tớ đã gấp hạc và sao. Tớ suy nghĩ: Đến lúc gặp được người ấy, tớ sẽ tặng tất cả hạc và sao đã gấp trong những năm tháng chưa gặp nhau. Đó là khoảng thời gian và những điều ước tớ dành dụm cho cậu.",
+            origami_secret: "Từ nhỏ tớ đã gấp hạc và sao. Tớ suy nghĩ: Đến lúc gặp được người ấy, tớ sẽ tặng tất cả hạc và sao đã gấp trong những năm tháng chưa gặp nhau. Đó là khoảng thời gian và những điều ước tớ dành dụm cho người ấy.",
             
             // HẠNH PHÚC (GREEN FLAGS)
             happiness: [
@@ -262,6 +263,8 @@ const appData = {
         { img: "assets/img/cat/z7489997725903_ff7bf6b0a5185e66ec6966bde804d780.jpg", caption: "Hạc giấy 🎐", rotate: -2, delay: 0.2 },
         { img: "assets/img/food/z7489997635173_c207f7c6bdb0cd07d9f9163fd43903b1.jpg", caption: "Yummy 🍜", rotate: 3, delay: 0.8 },
         { img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg", caption: "Cute xỉu ❤️", rotate: -4, delay: 1.2 }
+
+        
     ],
     // 5. RẠP CHIẾU PHIM (DANH SÁCH VIDEO)
     video_gallery: [
