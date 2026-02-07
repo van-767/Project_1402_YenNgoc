@@ -759,15 +759,15 @@ function checkFuture() {
 
         // HIỆN ẢNH SƯ PHỤ
         Swal.fire({
-            title: '✨ Chồng Tương Lai Nè! ✨',
+            title: '✨ Sự tò mò! ✨',
             // 👇 THAY ẢNH SƯ PHỤ Ở ĐÂY
-            imageUrl: 'assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg', 
+            imageUrl: 'assets/img/anhvan.jpg', 
             imageWidth: 400,
-            imageAlt: 'Future Husband',
+            imageAlt: 'Ảnh tớ đây!',
             html: `
                 <div style="margin-top:15px">
-                    <p style="font-size: 1.2rem; color: #d63031; font-weight: bold;">"Chạy đâu cho thoát!" 😎</p>
-                    <p>Đã lỡ nhìn thấy rồi là phải cưới đó nha!</p>
+                    <p style="font-size: 1.2rem; color: #d63031; font-weight: bold;">"Tò mò quá he! =))" </p>
+                    <p>Đã lỡ nhìn thấy rồi không cười tớ nha (ảnh từ 1 năm trước:3)!</p>
                 </div>
             `,
             background: '#fff url("https://www.transparenttextures.com/patterns/stardust.png")',
@@ -777,7 +777,7 @@ function checkFuture() {
             backdrop: `rgba(0,0,0,0.8)`
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire('Ngoan lắm! Yêu bé 3000! 🥰');
+                Swal.fire('Dễ thương quá à! Yêu bé 3000! 🥰');
                 futureClickCount = 0; // Reset game
             }
         });
@@ -1104,11 +1104,20 @@ function showFinalLetter() {
 
     Swal.fire({
         title: '💌 Gửi Em, Bé Cưng!',
-        html: `<p>Anh đã nối những vì sao hy vọng thành cánh hạc...</p><p><b>Làm người yêu anh nha? ❤️</b></p>`,
-        confirmButtonText: 'Dạ Đồng Ý! 💍',
+        html: `
+            <div style="text-align:left; line-height:1.6; color:#2d3436">
+                <p>Anh biết thế giới ngoài kia đôi khi rất ồn ào và mệt mỏi với em.</p>
+                <p>Anh không dám hứa sẽ gánh cả thế giới giúp em, nhưng anh hứa sẽ là <b>Góc Bình Yên</b> nhất để em quay về.</p>
+                <p>Cảm ơn em đã tin tưởng và chọn anh làm chỗ dựa. Anh sẽ không đi đâu cả, anh sẽ luôn ở đây, ngay bên cạnh em.</p>
+                <p style="text-align:center; font-weight:bold; font-size:1.4rem; color:#d63031; margin-top:15px">
+                    "Yêu và Thương em rất nhiều! ❤️"
+                </p>
+            </div>
+        `,
+        confirmButtonText: 'Để Anh Ôm Một Cái Nhé! 🫂', // Nút bấm mang tính hành động và an ủi
         confirmButtonColor: '#ff7675',
         backdrop: `rgba(0,0,0,0.8)`
-    }).then(res => { if(res.isConfirmed) Swal.fire('Yêu bé nhất đời! 🥰'); });
+    }).then(res => { if(res.isConfirmed) Swal.fire('Luôn ở đây với bé! ❤️'); });
 }
 
 function resetGame() {

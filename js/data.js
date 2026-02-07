@@ -252,21 +252,35 @@ const appData = {
         { title: "HCMBHGAV 23/01/2026", file: "assets/music/playlist_yen_ngoc/HCMBHGAV_23_01_26.m4a" }
     ],
     // 4. THƯ VIỆN ẢNH (DÂY PHƠI)
+// 4. THƯ VIỆN ẢNH (DÂY PHƠI) - ĐÃ UPDATE FULL ẢNH
     gallery: [
-        // DÂY 1
-        { img: "assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg", caption: "Nụ cười ấy...", rotate: -3, delay: 0 },
-        { img: "assets/img/cat/z7489997715011_d6728a1abab7f8c4362774c8d91b4024.jpg", caption: "Meow Meow 😺", rotate: 2, delay: 0.5 },
-        { img: "assets/img/cuti/z7489997568543_be4f1eecc888849d14489db0b9048c3f.jpg", caption: "Khéo tay ghê!", rotate: -5, delay: 1 },
-        { img: "assets/img/food/z7489997635060_36d73097dd86aafa79e308d3b549ac57.jpg", caption: "Đi chơi nè 🎡", rotate: 4, delay: 1.5 },
-        
-        // DÂY 2 (Nếu muốn thêm nhiều ảnh thì thêm vào đây)
-        { img: "assets/img/cat/z7489997725903_ff7bf6b0a5185e66ec6966bde804d780.jpg", caption: "Hạc giấy 🎐", rotate: -2, delay: 0.2 },
-        { img: "assets/img/food/z7489997635173_c207f7c6bdb0cd07d9f9163fd43903b1.jpg", caption: "Yummy 🍜", rotate: 3, delay: 0.8 },
-        { img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg", caption: "Cute xỉu ❤️", rotate: -4, delay: 1.2 }
+        // --- ẢNH BÉ CƯNG (CUTI) ---
+        { img: "assets/img/cuti/z7489997566779_7c6a26be0ea7076eee4c5e3db5db6a7a.jpg", caption: "Khéo tay nè 🥰", rotate: -3, delay: 0 },
+        { img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg", caption: "Dễ thương quá đi", rotate: 2, delay: 0.2 },
+        { img: "assets/img/cuti/z7489997568543_be4f1eecc888849d14489db0b9048c3f.jpg", caption: "Khéo tay hay làm", rotate: -5, delay: 0.4 },
+        { img: "assets/img/cuti/z7489997568441_255ce23f96785340bcec320eb390e730.jpg", caption: "Tay xinh", rotate: 3, delay: 0.6 },
+        { img: "assets/img/cuti/hocbai.jpg", caption: "Chăm chỉ học bài", rotate: -2, delay: 0.8 },
+        { img: "assets/img/cuti/ranhne.jpg", caption: "Tớ rảnh =))", rotate: 4, delay: 1.0 },
+        { img: "assets/img/cuti/avt.webp", caption: "Avatar xịn xò", rotate: -4, delay: 1.2 },
 
+        // --- ẢNH MÈO (CAT) ---
+        { img: "assets/img/cat/z7489997715011_d6728a1abab7f8c4362774c8d91b4024.jpg", caption: "Meow Meow 😺", rotate: 5, delay: 1.4 },
+        { img: "assets/img/cat/z7489997646132_9b3754877bfaca2bec81a2618d6f9c65.jpg", caption: "Hoàng Thượng", rotate: -3, delay: 1.6 },
+        { img: "assets/img/cat/z7489997697774_cc8b565ef0caf5b47c61c0696db47870.jpg", caption: "Cute xỉu", rotate: 2, delay: 1.8 },
+        { img: "assets/img/cat/z7489997710056_f80c153621c2183dadf0570026cc2a44.jpg", caption: "Ngủ nướng 💤", rotate: -5, delay: 2.0 },
+        { img: "assets/img/cat/z7489997717234_ed711c909733d4487dc018617d4fb621.jpg", caption: "Boss ngầu", rotate: 3, delay: 2.2 },
+        { img: "assets/img/cat/z7489997725903_ff7bf6b0a5185e66ec6966bde804d780.jpg", caption: "Nhìn gì đó?", rotate: -2, delay: 2.4 },
+        { img: "assets/img/cat/z7489997732995_478588c95dfd3c72a1b81d1c8e802683.jpg", caption: "Mèo méo meo", rotate: 4, delay: 2.6 },
 
-
-
+        // --- ẢNH ĐỒ ĂN (FOOD) ---
+        { img: "assets/img/food/z7489997635060_36d73097dd86aafa79e308d3b549ac57.jpg", caption: "Đi chơi nè 🎡", rotate: -3, delay: 2.8 },
+        { img: "assets/img/food/z7489997570941_d7e3b27cc10971db5694883b5d22287c.jpg", caption: "Măm măm 🍜", rotate: 2, delay: 3.0 },
+        { img: "assets/img/food/z7489997577586_0f879219c56b94658e4482365eb6ead5.jpg", caption: "Ngon quá xá", rotate: -4, delay: 3.2 },
+        { img: "assets/img/food/z7489997629577_22e3146f31a789f2c5b246eed569aee5.jpg", caption: "Food Tour", rotate: 5, delay: 3.4 },
+        { img: "assets/img/food/z7489997630500_d32b37cee8feb2b1ac066dfd6626272b.jpg", caption: "Đói bụng ghê", rotate: -2, delay: 3.6 },
+        { img: "assets/img/food/z7489997635173_c207f7c6bdb0cd07d9f9163fd43903b1.jpg", caption: "Yummy 😋", rotate: 3, delay: 3.8 },
+        { img: "assets/img/food/anchao.jpg", caption: "Cháo nóng hổi", rotate: -5, delay: 4.0 },
+        { img: "assets/img/food/ancom.jpg", caption: "Cơm mẹ nấu", rotate: 2, delay: 4.2 }
     ],
     // 5. RẠP CHIẾU PHIM (DANH SÁCH VIDEO)
     video_gallery: [
@@ -279,67 +293,67 @@ const appData = {
         {
             title: "Video về cậu Part 1 🎬",
             type: "local", 
-            link: "assets/video/About_life_jade/1.mp4",
+            link: "assets/video/About_yvettejade/vd1.mp4",
             desc: "Cậu dễ thương quá đi mất!"
         },
         {
             title: "Video về cậu Part 2 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/2.mp4",
+            link: "assets/video/About_yvettejade/vd2.mp4",
             desc: "Cậu cười dễ thương quá!"
         },
         {
             title: "Video về cậu Part 3 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/3.mp4",
+            link: "assets/video/About_yvettejade/vd3.mp4",
             desc: "Cậu thật sự rất dễ thương!"
         },
         {
             title: "Video về cậu Part 4 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/4.mp4",
+            link: "assets/video/About_yvettejade/vd4.mp4",
             desc: "Cậu thật sự rất đáng yêu!"
         },
         {
             title: "Video về cậu Part 5 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/5.mp4",
+            link: "assets/video/About_yvettejade/vd5.mp4",
             desc: "Cậu thật sự rất đáng yêu!"
         },
         {
             title: "Video về cậu Part 6 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/6.mp4",
+            link: "assets/video/About_yvettejade/vd6.mp4",
             desc: "Cậu thật sự rất đáng yêu!"
         },
         {
             title: "Video về cậu Part 7 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/7.mp4",
+            link: "assets/video/About_yvettejade/vd7.mp4",
             desc: "Cậu thật sự rất đáng yêu!"
         },
         {
             title: "Video về cậu Part 8 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/8.mp4",
+            link: "assets/video/About_yvettejade/vd8.mp4",
             desc: "Cậu thật sự rất đáng yêu!"
         },
         {
             title: "Video về cậu Part 9 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/9.mp4",
+            link: "assets/video/About_yvettejade/vd9.mp4",
             desc: "Cậu thật sự rất đáng yêu!"
         },
         {
             title: "Video về cậu Part 10 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/10.mp4",
+            link: "assets/video/About_yvettejade/vd10.mp4",
             desc: "Cậu thật sự rất đáng yêu!"
         },
         {
             title: "Video về cậu Part 11 🎬",
             type: "local",
-            link: "assets/video/About_life_jade/11.mp4",
+            link: "assets/video/About_yvettejade/vd11.mp4",
             desc: "Cậu thật sự rất đáng yêu!"
         }
     ],
