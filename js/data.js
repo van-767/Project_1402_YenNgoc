@@ -264,33 +264,83 @@ const appData = {
         { img: "assets/img/food/z7489997635173_c207f7c6bdb0cd07d9f9163fd43903b1.jpg", caption: "Yummy 🍜", rotate: 3, delay: 0.8 },
         { img: "assets/img/cuti/z7489997559494_34f6dc7d05d1082fd2e1b7f7be1b9a5a.jpg", caption: "Cute xỉu ❤️", rotate: -4, delay: 1.2 }
 
-        
+
+
+
     ],
     // 5. RẠP CHIẾU PHIM (DANH SÁCH VIDEO)
     video_gallery: [
         {
-            title: "🎹 Giai điệu ngày 26/1 (Piano)",
+            title: "Xung quanh nhà cậu 🎥",
             type: "local", // Video tải lên host
             link: "assets/video/About_life_jade/7489997559009.mp4", // Thay đường dẫn file của Sư Phụ vào
-            desc: "Tuy chỉ 40s nhưng là cả tấm lòng..."
+            desc: "Mấy cậu học sinh cấp 3 còn cao hơn tớ nữa kìa!"
         },
         {
-            title: "🌊 Kỷ niệm Vũng Tàu",
-            type: "youtube", // Video Youtube
-            link: "ABCxyz123", // Thay ID video Youtube vào (Ví dụ: https://youtu.be/ABCxyz123)
-            desc: "Những ngày nắng đẹp bên nhau."
+            title: "Video về cậu Part 1 🎬",
+            type: "local", 
+            link: "assets/video/About_life_jade/1.mp4",
+            desc: "Cậu dễ thương quá đi mất!"
         },
         {
-            title: "🎤 Bé hát vu vơ",
+            title: "Video về cậu Part 2 🎬",
             type: "local",
-            link: "assets/video/be_hat.mp4",
-            desc: "Giọng hát ngọt ngào nhất thế giới."
+            link: "assets/video/About_life_jade/2.mp4",
+            desc: "Cậu cười dễ thương quá!"
         },
         {
-            title: "🐱 Mèo con cute",
-            type: "youtube",
-            link: "dQw4w9WgXcQ", // ID Youtube demo
-            desc: "Xem giải trí xíu nè."
+            title: "Video về cậu Part 3 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/3.mp4",
+            desc: "Cậu thật sự rất dễ thương!"
+        },
+        {
+            title: "Video về cậu Part 4 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/4.mp4",
+            desc: "Cậu thật sự rất đáng yêu!"
+        },
+        {
+            title: "Video về cậu Part 5 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/5.mp4",
+            desc: "Cậu thật sự rất đáng yêu!"
+        },
+        {
+            title: "Video về cậu Part 6 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/6.mp4",
+            desc: "Cậu thật sự rất đáng yêu!"
+        },
+        {
+            title: "Video về cậu Part 7 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/7.mp4",
+            desc: "Cậu thật sự rất đáng yêu!"
+        },
+        {
+            title: "Video về cậu Part 8 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/8.mp4",
+            desc: "Cậu thật sự rất đáng yêu!"
+        },
+        {
+            title: "Video về cậu Part 9 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/9.mp4",
+            desc: "Cậu thật sự rất đáng yêu!"
+        },
+        {
+            title: "Video về cậu Part 10 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/10.mp4",
+            desc: "Cậu thật sự rất đáng yêu!"
+        },
+        {
+            title: "Video về cậu Part 11 🎬",
+            type: "local",
+            link: "assets/video/About_life_jade/11.mp4",
+            desc: "Cậu thật sự rất đáng yêu!"
         }
     ],
 };
